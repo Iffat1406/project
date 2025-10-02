@@ -41,8 +41,8 @@ const Contact = () => {
                   <i className="bi bi-geo-alt-fill"></i>
                 </div>
                 <h5 className="fw-bold">Visit our place</h5>
-                <p className="text-muted mb-1">88 New South Head Rd, Triple</p>
-                <p className="text-muted">New York</p>
+                <p className="text-muted mb-1">New Dinkar Co Operative Housing Society, New Girgaonkar Wadi, Sitladevi Temple Road, Mahim</p>
+                <p className="text-muted">Mumbai</p>
               </div>
             </div>
 
@@ -53,8 +53,8 @@ const Contact = () => {
                   <i className="bi bi-envelope-fill"></i>
                 </div>
                 <h5 className="fw-bold">Contact us</h5>
-                <p className="text-muted mb-1">broadx@website.com</p>
-                <p className="text-muted">+(602) 762 472 96</p>
+                <p className="text-muted mb-1">radhacablenet1@gmail.com</p>
+                <p className="text-muted">+(91) 8369108915</p>
               </div>
             </div>
 
@@ -65,7 +65,7 @@ const Contact = () => {
                   <i className="bi bi-alarm-fill"></i>
                 </div>
                 <h5 className="fw-bold">Office time</h5>
-                <p className="text-muted mb-1">Five days 8:00 am - 5:00 pm</p>
+                <p className="text-muted mb-1">Five days 10am To 8pm</p>
                 <p className="text-muted">Friday is closed</p>
               </div>
             </div>

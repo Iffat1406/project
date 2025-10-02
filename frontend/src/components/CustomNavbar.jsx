@@ -1,54 +1,62 @@
-import React from 'react';
-import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Navbar, Nav, Container, NavDropdown, Button } from "react-bootstrap";
 
 const CustomNavbar = () => {
+  const [showPlans, setShowPlans] = useState(false);
+
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
+    <Navbar bg="light" variant="light" expand="lg" sticky="top">
       <Container>
-        {/* Brand with logo image */}
         <Navbar.Brand href="/">
           <img
-            src="/images/logo.png"
+            src="/images/logo3.png"
             alt="CableNet Logo"
-            style={{ maxHeight: '70%', width: '60px', marginRight: '10px' }}
+            style={{ maxHeight: "70%", width: "60px", marginRight: "10px" }}
           />
-          Radha Cable and Internet
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="navbar-nav" />
 
         <Navbar.Collapse id="navbar-nav">
-          {/* Move links to the right */}
-          <Nav className="ms-auto">
+          {/* Center links with spacing */}
+          <Nav className="mx-auto d-flex align-items-center" style={{ gap: "20px" }}>
             <Nav.Link href="/">Home</Nav.Link>
 
-          <style>{`
-            .nav-item.dropdown .dropdown-toggle::after {
-              display: none;
-            }
+            {/* Plans with hover dropdown */}
+            <style>{`
+              #plans-dropdown::after {
+                display: none !important; /* hides the arrow */
+              }
+            `}</style>
 
-            .nav-item.dropdown:hover .dropdown-menu {
-              display: block;
-            }
-
-      `}</style>
-            {/* Plans with hover-dropdown */}
-            <NavDropdown title="Plans" id="plans-dropdown" className="dropdown">
+            <NavDropdown
+              title={<span>Plans</span>}
+              id="plans-dropdown"
+              show={showPlans}
+              onMouseEnter={() => setShowPlans(true)}
+              onMouseLeave={() => setShowPlans(false)}
+            >
               <NavDropdown.Item href="/plans/internet">Internet Plans</NavDropdown.Item>
               <NavDropdown.Item href="/plans/cable">Cable Plans</NavDropdown.Item>
             </NavDropdown>
 
             <Nav.Link href="/services">Services</Nav.Link>
-            
-            <Nav.Link href="/support">Support</Nav.Link>
+            <Nav.Link href="/blog">Blog</Nav.Link>
             <Nav.Link href="/about">About Us</Nav.Link>
             <Nav.Link href="/contact">Contact</Nav.Link>
 
-             {/* Get Started Button */}
-            <Nav.Link href="/services">
-              <Button variant="primary">Get Started</Button>
-            </Nav.Link>
-
+            {/* Red Get Started button */}
+            <Button
+              as="a"
+              href="/contact"
+              style={{
+                backgroundColor: "#FF124F",
+                borderColor: "#FF124F",
+                color: "#fff",
+              }}
+            >
+              Get Started
+            </Button>
           </Nav>
         </Navbar.Collapse>
       </Container>
