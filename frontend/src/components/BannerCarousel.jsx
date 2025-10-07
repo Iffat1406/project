@@ -48,20 +48,20 @@ const BannerCarousel = () => {
           </div>
         </div>
 
-        {/* Slide 3 */}
-        <div className="carousel-item">
-          <img
-            src="/images/vite.svg"
-            className="d-block w-100"
-            alt="Banner 3"
-          />
-          <div className="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-            <h5 className="display-4 fw-bold">Fast & Modern</h5>
-            <p className="fs-4">Built with Vite + React</p>
-            <button className="btn btn-lg btn-warning mt-3">Learn More</button>
+          {/* Slide 3 */}
+          <div className="carousel-item">
+            <img
+              src="/images/vite.svg"
+              className="d-block w-100"
+              alt="Banner 3"
+            />
+            <div className="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+              <h5 className="display-4 fw-bold">Fast & Modern</h5>
+              <p className="fs-4">Built with Vite + React</p>
+              <button className="btn btn-lg btn-warning mt-3">Learn More</button>
+            </div>
           </div>
         </div>
-      </div>
 
       {/* Controls */}
       <button
