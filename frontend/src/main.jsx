@@ -1,14 +1,16 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import {BrowserRouter} from 'react-router-dom';
-import './index.css'
-import App from './App.jsx'
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import React from 'react';
+import App from './App.jsx';
+import ThemeProviderWrapper from './theme/ThemeProviderWrapper.jsx';
+import './index.css';
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-
-)
+  <React.StrictMode>
+    <BrowserRouter>
+      <ThemeProviderWrapper>
+        <App />
+      </ThemeProviderWrapper>
+    </BrowserRouter>
+  </React.StrictMode>
+);

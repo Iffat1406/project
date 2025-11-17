@@ -1,10 +1,10 @@
 const dotenv = require("dotenv");
-dotenv.config(); // move this after importing dotenv
+dotenv.config();
 
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
 const connectDB = require("./config/db");
 const path = require("path");
+const corsMiddleware = require("./config/cors");
 
 const PORT = process.env.PORT || 8080;
 
@@ -16,22 +16,8 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(corsMiddleware); // ✅ Use the modularized CORS setup
 
-// CORS setup (only one)
-app.use(cors({
-  origin: 'http://localhost:3000, http://localhost:8000',  // your React app
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-   allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "Cache-Control",
-      "Expires",
-      "Pragma",
-    ],
-  credentials: true
-}));
-
-// Example route
 // Serve frontend build
 app.use(express.static(path.join(__dirname, "../frontend/dist"))); // or "../frontend/build" if CRA
 
