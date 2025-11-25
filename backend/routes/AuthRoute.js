@@ -1,10 +1,13 @@
-// routes/adminRoutes.js
-import express from "express";
-import { adminLogin } from "../controllers/adminController.js";
-
+const express = require('express');
 const router = express.Router();
+const { register, login, getProfile } = require('../controller/adminLogin');
+const { protect } = require('../middleware/authMiddleware');
 
-// Login
-router.post("/login", adminLogin);
+// Public routes
+router.post('/register', register);
+router.post('/login', login);
 
-export default router;
+// Protected routes
+router.get('/profile', protect, getProfile);
+
+module.exports = router;

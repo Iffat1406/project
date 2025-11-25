@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Box,
   Container,
-  Grid,
   TextField,
   Button,
   Typography,
@@ -16,19 +15,14 @@ import {
   Zoom,
   InputAdornment,
   MenuItem,
-  Chip,
-  Divider,
   Avatar,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Accordion,
   AccordionSummary,
   AccordionDetails,
   useTheme,
   useMediaQuery
 } from '@mui/material';
+import { Grid } from "@mui/material";
 import {
   LocationOnOutlined,
   EmailOutlined,
@@ -37,19 +31,12 @@ import {
   SendOutlined,
   PersonOutline,
   SubjectOutlined,
-  WifiOutlined,
-  TvOutlined,
   SupportAgentOutlined,
-  BuildOutlined,
-  CheckCircleOutlined,
   ExpandMoreOutlined,
   WhatsApp,
   Facebook,
   Twitter,
-  Instagram,
-  SpeedOutlined,
-  RouterOutlined,
-  HeadsetMicOutlined
+  Instagram
 } from '@mui/icons-material';
 
 const Contact = () => {
@@ -61,11 +48,9 @@ const Contact = () => {
     lastname: '',
     email: '',
     phone: '',
-    serviceType: '',
     inquiryType: '',
     subject: '',
-    message: '',
-    preferredContact: 'email'
+    message: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -76,12 +61,6 @@ const Contact = () => {
     severity: 'success'
   });
   const [touched, setTouched] = useState({});
-
-  const serviceTypes = [
-    { value: 'broadband', label: 'Broadband Internet', icon: <WifiOutlined /> },
-    { value: 'cable', label: 'Cable TV', icon: <TvOutlined /> },
-    { value: 'both', label: 'Internet + Cable TV', icon: <RouterOutlined /> }
-  ];
 
   const inquiryTypes = [
     { value: 'new_connection', label: 'New Connection' },
@@ -116,13 +95,6 @@ const Contact = () => {
     }
   ];
 
-  const whyChooseUs = [
-    { icon: <SpeedOutlined />, title: 'High-Speed Internet', desc: 'Lightning-fast fiber optic connectivity' },
-    { icon: <HeadsetMicOutlined />, title: '24/7 Support', desc: 'Round-the-clock customer assistance' },
-    { icon: <BuildOutlined />, title: 'Quick Installation', desc: 'Same-day installation available' },
-    { icon: <CheckCircleOutlined />, title: 'Reliable Service', desc: '99.9% uptime guarantee' }
-  ];
-
   // Validation
   const validateField = (name, value) => {
     switch (name) {
@@ -140,8 +112,6 @@ const Contact = () => {
           return 'Please enter a valid 10-digit mobile number';
         }
         return '';
-      case 'serviceType':
-        return value ? '' : 'Please select a service type';
       case 'inquiryType':
         return value ? '' : 'Please select inquiry type';
       case 'message':
@@ -157,8 +127,8 @@ const Contact = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    ['firstname', 'email', 'phone', 'serviceType', 'inquiryType', 'message'].forEach((key) => {
-      const error = validateField(key, formData[key]);
+    ['firstname', 'email', 'phone', 'inquiryType', 'message'].forEach((key) => {
+      const error = validateField(key, exchangeData[key]);
       if (error) newErrors[key] = error;
     });
     setErrors(newErrors);
@@ -216,11 +186,9 @@ const Contact = () => {
         lastname: '',
         email: '',
         phone: '',
-        serviceType: '',
         inquiryType: '',
         subject: '',
-        message: '',
-        preferredContact: 'email'
+        message: ''
       });
       setTouched({});
       setErrors({});
@@ -293,7 +261,7 @@ const Contact = () => {
             </Typography>
             
             {/* Quick Action Buttons */}
-            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap', mt: 3 }}>
+            {/* <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap', mt: 3 }}>
               <Button
                 variant="contained"
                 startIcon={<WhatsApp />}
@@ -330,55 +298,14 @@ const Contact = () => {
               >
                 Live Chat
               </Button>
-            </Box>
+            </Box> */}
           </Box>
         </Fade>
 
-        {/* Why Choose Us Section */}
-        {/* <Box sx={{ mb: 8 }}>
-          <Typography variant="h4" fontWeight={600} textAlign="center" mb={4}>
-            Why Choose Radha Cable Net?
-          </Typography>
-          <Grid container spacing={3}>
-            {whyChooseUs.map((item, index) => (
-              <Grid item xs={6} md={3} key={index}>
-                <Zoom in timeout={800 + index * 100}>
-                  <Card 
-                    elevation={0}
-                    sx={{ 
-                      textAlign: 'center',
-                      p: 3,
-                      height: '100%',
-                      border: '1px solid',
-                      borderColor: 'divider',
-                      transition: 'all 0.3s',
-                      '&:hover': {
-                        transform: 'translateY(-8px)',
-                        boxShadow: 3,
-                        borderColor: 'primary.main'
-                      }
-                    }}
-                  >
-                    <Box sx={{ color: 'primary.main', mb: 2 }}>
-                      {React.cloneElement(item.icon, { sx: { fontSize: 48 } })}
-                    </Box>
-                    <Typography variant="h6" fontWeight={600} gutterBottom sx={{ fontSize: { xs: '0.9rem', md: '1.25rem' } }}>
-                      {item.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {item.desc}
-                    </Typography>
-                  </Card>
-                </Zoom>
-              </Grid>
-            ))}
-          </Grid>
-        </Box> */}
-
-        {/* Contact Info Cards */}
-        <Grid container spacing={4} mb={8}>
+        {/* Contact Info Cards - Fixed for Grid v2 */}
+        <Grid container spacing={3} sx={{ mb: 8 }}>
           {contactInfo.map((info, index) => (
-            <Grid item xs={12} md={4} key={index}>
+            <Grid size={{ xs: 12, md: 4 }} key={index}>
               <Zoom in timeout={1000 + index * 200}>
                 <Card
                   elevation={0}
@@ -440,150 +367,146 @@ const Contact = () => {
           ))}
         </Grid>
 
-        {/* Contact Form */}
-      <Fade in timeout={1200}>
-        <Paper
-          elevation={0}
-          sx={{
-            p: { xs: 3, md: 6 },
-            borderRadius: 3,
-            border: '1px solid',
-            borderColor: 'divider',
-            mb: 8
-          }}
-        >
-          <Typography
-            variant="h4"
-            gutterBottom
-            fontWeight={600}
-            mb={1}
-            sx={{ fontSize: { xs: '1.75rem', md: '2.125rem' } }}
+        {/* Contact Form - Fixed for Grid v2 */}
+        <Fade in timeout={1200}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: { xs: 3, md: 6 },
+              borderRadius: 3,
+              border: '1px solid',
+              borderColor: 'divider',
+              mb: 8
+            }}
           >
-            Send Your Message
-          </Typography>
+            <Typography
+              variant="h4"
+              gutterBottom
+              fontWeight={600}
+              mb={1}
+              sx={{ fontSize: { xs: '1.75rem', md: '2.125rem' } }}
+            >
+              Send Your Message
+            </Typography>
 
-          <Typography variant="body2" color="text.secondary" mb={4}>
-            Fill out the form below and our team will get back to you within 24 hours
-          </Typography>
+            <Typography variant="body2" color="text.secondary" mb={4}>
+              Fill out the form below and our team will get back to you within 24 hours
+            </Typography>
 
-          <Box component="form" onSubmit={handleSubmit} noValidate>
-            <Grid container spacing={3}>
-
-              {/* First Name */}
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="First Name"
-                  name="firstname"
-                  value={formData.firstname}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
-                  error={touched.firstname && !!errors.firstname}
-                  helperText={touched.firstname && errors.firstname}
-                  variant="outlined"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <PersonOutline color="action" />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+            <Box component="form" onSubmit={handleSubmit} noValidate>
+              {/* LINE 1: First Name & Last Name (50% each) */}
+              <Grid container spacing={3} sx={{ mb: 3 }}>
+                <Grid size={{ xs: 12, sm: 6 }}>
+                  <TextField
+                    fullWidth
+                    label="First Name"
+                    name="firstname"
+                    value={formData.firstname}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                    error={touched.firstname && !!errors.firstname}
+                    helperText={touched.firstname && errors.firstname}
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PersonOutline color="action" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 6 }}>
+                  <TextField
+                    fullWidth
+                    label="Last Name"
+                    name="lastname"
+                    value={formData.lastname}
+                    onChange={handleChange}
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PersonOutline color="action" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
               </Grid>
 
-              {/* Last Name */}
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Last Name"
-                  name="lastname"
-                  value={formData.lastname}
-                  onChange={handleChange}
-                  variant="outlined"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <PersonOutline color="action" />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+              {/* LINE 2: Email, Phone & Inquiry Type (33.33% each) */}
+              <Grid container spacing={3} sx={{ mb: 3 }}>
+                <Grid size={{ xs: 12, sm: 4 }}>
+                  <TextField
+                    fullWidth
+                    label="Email Address"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                    error={touched.email && !!errors.email}
+                    helperText={touched.email && errors.email}
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <EmailOutlined color="action" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 4 }}>
+                  <TextField
+                    fullWidth
+                    label="Phone Number"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                    placeholder="10-digit mobile number"
+                    error={touched.phone && !!errors.phone}
+                    helperText={touched.phone && errors.phone}
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PhoneOutlined color="action" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 4 }}>
+                  <TextField
+                    fullWidth
+                    select
+                    label="Inquiry Type"
+                    name="inquiryType"
+                    value={formData.inquiryType}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                    error={touched.inquiryType && !!errors.inquiryType}
+                    helperText={touched.inquiryType && errors.inquiryType}
+                    variant="outlined"
+                  >
+                    {inquiryTypes.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
               </Grid>
 
-              {/* Email */}
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Email Address"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
-                  error={touched.email && !!errors.email}
-                  helperText={touched.email && errors.email}
-                  variant="outlined"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <EmailOutlined color="action" />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-
-              {/* Phone */}
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Phone Number"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
-                  placeholder="10-digit mobile number"
-                  error={touched.phone && !!errors.phone}
-                  helperText={touched.phone && errors.phone}
-                  variant="outlined"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <PhoneOutlined color="action" />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-
-              {/* Inquiry Type */}
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  select
-                  label="Inquiry Type"
-                  name="inquiryType"
-                  value={formData.inquiryType}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
-                  error={touched.inquiryType && !!errors.inquiryType}
-                  helperText={touched.inquiryType && errors.inquiryType}
-                  variant="outlined"
-                >
-                  {inquiryTypes.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-
-              {/* Subject */}
-              <Grid item xs={12} sm={6}>
+              {/* LINE 3: Subject (100% full width) */}
+              <Box sx={{ mb: 3 }}>
                 <TextField
                   fullWidth
                   label="Subject (Optional)"
@@ -599,10 +522,10 @@ const Contact = () => {
                     ),
                   }}
                 />
-              </Grid>
+              </Box>
 
-              {/* Message */}
-              <Grid item xs={12}>
+              {/* LINE 4: Message (100% full width) */}
+              <Box sx={{ mb: 3 }}>
                 <TextField
                   fullWidth
                   label="Your Message"
@@ -618,10 +541,10 @@ const Contact = () => {
                   variant="outlined"
                   placeholder="Tell us more about your requirements..."
                 />
-              </Grid>
+              </Box>
 
-              {/* Submit Button */}
-              <Grid item xs={12}>
+              {/* LINE 5: Submit Button (centered) */}
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Button
                   type="submit"
                   variant="contained"
@@ -651,13 +574,10 @@ const Contact = () => {
                     'Send Message'
                   )}
                 </Button>
-              </Grid>
-
-            </Grid>
-          </Box>
-        </Paper>
-      </Fade>
-
+              </Box>
+            </Box>
+          </Paper>
+        </Fade>
 
         {/* FAQ Section */}
         <Fade in timeout={1400}>
@@ -703,9 +623,9 @@ const Contact = () => {
           </Paper>
         </Fade>
 
-        {/* Social Media & Emergency Contact */}
-        <Grid container spacing={4} mb={8}>
-          <Grid item xs={12} md={6}>
+        {/* Social Media & Emergency Contact - Fixed for Grid v2 */}
+        <Grid container spacing={4} sx={{ mb: 8 }}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Paper 
               elevation={0} 
               sx={{ 
@@ -739,7 +659,7 @@ const Contact = () => {
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Paper 
               elevation={0} 
               sx={{ 

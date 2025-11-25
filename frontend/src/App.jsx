@@ -5,12 +5,13 @@ import Home from './pages/Home';
 import About from './pages/About';
 import InternetPlans from './pages/InternetPlans';
 import Contact from './pages/Contact';
-import Footer from './components/Footer';
+import Footer from './components/footer';
 import Service from './pages/Service';
 import SupportPage from './pages/SupportPage';
 import CableTVPlans from './pages/CablePlans';
 import Blog from './pages/Blog';
 import Services from './pages/Service';
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
 
       
       <Footer />
+      <ScrollToTopButton />
     </div>
   )
 }

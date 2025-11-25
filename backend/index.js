@@ -26,6 +26,8 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist", "index.html")); // CRA: ../frontend/build
 });
 
+app.use('/api/admin', require('./routes/AuthRoute'));
+
 // Start server
 app.listen(PORT, () => {
   console.log(`✅ Server is running on http://localhost:${PORT}`);

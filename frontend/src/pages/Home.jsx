@@ -1,6 +1,5 @@
 import React from 'react';
 import BannerCarousel from '../components/BannerCarousel';
-import '../css/Blog.css';
 
 const Home = () => {
   return (
@@ -8,7 +7,7 @@ const Home = () => {
       {/* 1️⃣ Banner Carousel */}
       <BannerCarousel />
 
-      {/* 2️⃣ Features / Why Choose Us */}
+      2️⃣ Features / Why Choose Us
       <section className="py-5 bg-light">
         <div className="container">
           <h2 className="text-center mb-4">Why Choose Us?</h2>
@@ -114,7 +113,7 @@ const Home = () => {
       </section>
 
 {/* 7️⃣ Blog / News */}
-<section className="py-5">
+{/* <section className="py-5">
   <div className="container">
     <h2 className="text-center mb-4">Latest News & Tips</h2>
     <div className="row justify-content-center">
@@ -140,7 +139,7 @@ const Home = () => {
       ))}
     </div>
   </div>
-</section>
+</section> */}
 
 
       {/* 8️⃣ FAQ */}

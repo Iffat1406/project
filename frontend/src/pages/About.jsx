@@ -43,6 +43,8 @@ import {
   VerifiedOutlined,
   LocalOfferOutlined
 } from '@mui/icons-material';
+import rdne from "../../public/images/rdne.jpg";
+import CustomerFeedback from "../components/CustomerFeedback"
 
 const About = () => {
   const theme = useTheme();
@@ -80,44 +82,6 @@ const About = () => {
     }
   ];
 
-  const testimonials = [
-    {
-      name: 'Priya Kulkarni',
-      role: 'Homemaker',
-      location: 'Mahim, Mumbai',
-      rating: 5,
-      text: 'The internet speed is amazing and the support team is always available. Best service provider in town! My kids can attend online classes without any buffering.',
-      avatar: 'PK',
-      color: '#e91e63'
-    },
-    {
-      name: 'Rajesh Patil',
-      role: 'Business Owner',
-      location: 'Dadar, Mumbai',
-      rating: 5,
-      text: 'Affordable packages and reliable connection. My family enjoys both internet and cable without interruptions. The installation was professional and quick.',
-      avatar: 'RP',
-      color: '#3f51b5'
-    },
-    {
-      name: 'Neha Sharma',
-      role: 'Software Developer',
-      location: 'Bandra, Mumbai',
-      rating: 5,
-      text: 'They really care about customers. Installation was quick and hassle-free. The upload and download speeds are exactly as promised. Perfect for work from home!',
-      avatar: 'NS',
-      color: '#00bcd4'
-    },
-    {
-      name: 'Amit Deshmukh',
-      role: 'Student',
-      location: 'Worli, Mumbai',
-      rating: 5,
-      text: 'Great service at an affordable price! The customer support team is very responsive and helped me choose the right plan for my studies and entertainment needs.',
-      avatar: 'AD',
-      color: '#4caf50'
-    }
-  ];
 
   const stats = [
     { value: '10,000+', label: 'Happy Customers', icon: <PeopleOutlined /> },
@@ -158,14 +122,6 @@ const About = () => {
     { label: 'Customer Satisfaction', value: 98, color: '#4caf50' },
     { label: 'Service Reliability', value: 99, color: '#ff9800' },
     { label: 'Support Response', value: 96, color: '#9c27b0' }
-  ];
-
-  const timeline = [
-    { year: '2008', title: 'Company Founded', description: 'Started with a vision to connect Mahim community' },
-    { year: '2012', title: 'Fiber Optic Launch', description: 'Introduced high-speed fiber internet' },
-    { year: '2016', title: '5000+ Customers', description: 'Reached milestone of serving 5000 homes' },
-    { year: '2020', title: 'HD Cable Services', description: 'Launched premium HD cable packages' },
-    { year: '2025', title: '10,000+ Customers', description: 'Serving over 10,000 satisfied customers' }
   ];
 
   return (
@@ -416,11 +372,12 @@ const About = () => {
           </Grid>
         </Grid>
 
-        {/* Why Choose Us */}
+       {/* Why Choose Us */}
         <Box mb={8}>
           <Typography variant="h3" fontWeight={700} textAlign="center" mb={2}>
             Why Choose Radha Cable Net?
           </Typography>
+
           <Typography 
             variant="body1" 
             textAlign="center" 
@@ -430,88 +387,131 @@ const About = () => {
           >
             We're more than just an internet and cable provider. We're your partner in staying connected.
           </Typography>
-          <Grid container spacing={3}>
+
+          {/* Horizontal Scroll Row */}
+          <Box
+            sx={{
+              display: "flex",
+              gap: 3,
+              overflowX: "auto",
+              pb: 2,
+              "&::-webkit-scrollbar": { height: 8 },
+              "&::-webkit-scrollbar-thumb": { backgroundColor: "#bdbdbd", borderRadius: 4 }
+            }}
+          >
             {whyChooseUs.map((item, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
-                <Zoom in timeout={1800 + index * 100}>
-                  <Card
-                    elevation={0}
-                    sx={{
-                      height: '100%',
-                      textAlign: 'center',
-                      border: '1px solid',
-                      borderColor: 'divider',
-                      transition: 'all 0.3s',
-                      '&:hover': {
-                        transform: 'translateY(-12px)',
-                        boxShadow: 6,
-                        borderColor: item.color
-                      }
-                    }}
-                  >
-                    <CardContent sx={{ p: 4 }}>
-                      <Box
-                        sx={{
-                          width: 80,
-                          height: 80,
-                          borderRadius: '50%',
-                          bgcolor: item.bgColor,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          margin: '0 auto 20px',
-                          color: item.color,
-                          transition: 'transform 0.3s',
-                          '&:hover': {
-                            transform: 'rotate(360deg)'
-                          }
-                        }}
-                      >
-                        {React.cloneElement(item.icon, { sx: { fontSize: 40 } })}
-                      </Box>
-                      <Typography variant="h6" fontWeight={600} gutterBottom>
-                        {item.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {item.description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Zoom>
-              </Grid>
+              <Zoom in timeout={1800 + index * 100} key={index}>
+                <Card
+                  elevation={0}
+                  sx={{
+                    minWidth: 260,   // 🔥 Ensures horizontal layout
+                    textAlign: 'center',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    transition: 'all 0.3s',
+                    '&:hover': {
+                      transform: 'translateY(-12px)',
+                      boxShadow: 6,
+                      borderColor: item.color
+                    }
+                  }}
+                >
+                  <CardContent sx={{ p: 4 }}>
+                    <Box
+                      sx={{
+                        width: 80,
+                        height: 80,
+                        borderRadius: '50%',
+                        bgcolor: item.bgColor,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: '0 auto 20px',
+                        color: item.color,
+                        transition: 'transform 0.3s',
+                        '&:hover': {
+                          transform: 'rotate(360deg)'
+                        }
+                      }}
+                    >
+                      {React.cloneElement(item.icon, { sx: { fontSize: 40 } })}
+                    </Box>
+
+                    <Typography variant="h6" fontWeight={600} gutterBottom>
+                      {item.title}
+                    </Typography>
+
+                    <Typography variant="body2" color="text.secondary">
+                      {item.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Zoom>
             ))}
-          </Grid>
+          </Box>
         </Box>
 
+
         {/* Core Values */}
-        <Paper elevation={0} sx={{ p: 5, mb: 8, bgcolor: 'primary.main', color: 'white' }}>
-          <Typography variant="h3" fontWeight={700} textAlign="center" mb={5}>
-            Our Core Values
-          </Typography>
-          <Grid container spacing={4}>
-            {coreValues.map((value, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
-                <Box textAlign="center">
-                  <Box sx={{ mb: 2 }}>
+        <Box mb={8}>
+          <Grid container spacing={4} alignItems="center">
+            
+            {/* LEFT SIDE – VALUES LIST */}
+            <Grid item xs={12} md={6}>
+              <Box>
+                {coreValues.map((value, index) => (
+                  <Card
+                    key={index}
+                    elevation={3}
+                    sx={{
+                      mb: 3,
+                      p: 3,
+                      borderRadius: 3,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 2
+                    }}
+                  >
+                    {/* Icon */}
                     {React.cloneElement(value.icon, { 
-                      sx: { 
-                        fontSize: 50,
-                        color: 'white',
-                        filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))'
-                      } 
+                      sx: { fontSize: 40, color: "primary.main" } 
                     })}
-                  </Box>
-                  <Typography variant="h5" fontWeight={600} gutterBottom>
-                    {value.title}
-                  </Typography>
-                  <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                    {value.description}
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
+
+                    {/* Text */}
+                    <Box>
+                      <Typography variant="h6" fontWeight={700}>
+                        {value.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {value.description}
+                      </Typography>
+                    </Box>
+                  </Card>
+                ))}
+              </Box>
+            </Grid>
+
+            {/* RIGHT SIDE – IMAGE */}
+            <Grid item xs={12} md={6}>
+              <Box
+                component="img"
+                src={rdne}
+                alt="Core Values Visual"
+                sx={{
+          width: "100%",
+          maxWidth: 380,
+          height: "auto",
+          borderRadius: 3,
+          boxShadow: 4,
+          mx: "auto"
+        }}
+
+              />
+            </Grid>
+
           </Grid>
-        </Paper>
+        </Box>  
+
 
         {/* Performance Metrics */}
         <Box mb={8}>
@@ -551,132 +551,7 @@ const About = () => {
           </Grid>
         </Box>
 
-        {/* Timeline */}
-        <Box mb={8}>
-          <Typography variant="h3" fontWeight={700} textAlign="center" mb={5}>
-            Our Journey
-          </Typography>
-          <Box sx={{ position: 'relative' }}>
-            {timeline.map((item, index) => (
-              <Fade in timeout={2200 + index * 200} key={index}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    mb: 4,
-                    flexDirection: index % 2 === 0 ? 'row' : 'row-reverse',
-                    alignItems: 'center'
-                  }}
-                >
-                  <Box sx={{ flex: 1 }} />
-                  <Box
-                    sx={{
-                      width: 80,
-                      height: 80,
-                      borderRadius: '50%',
-                      bgcolor: 'primary.main',
-                      color: 'white',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 700,
-                      fontSize: '1.1rem',
-                      boxShadow: 3,
-                      zIndex: 1
-                    }}
-                  >
-                    {item.year}
-                  </Box>
-                  <Box sx={{ flex: 1 }}>
-                    <Paper
-                      elevation={0}
-                      sx={{
-                        p: 3,
-                        ml: index % 2 === 0 ? 3 : 0,
-                        mr: index % 2 === 0 ? 0 : 3,
-                        border: '1px solid',
-                        borderColor: 'divider'
-                      }}
-                    >
-                      <Typography variant="h6" fontWeight={600} gutterBottom>
-                        {item.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {item.description}
-                      </Typography>
-                    </Paper>
-                  </Box>
-                </Box>
-              </Fade>
-            ))}
-          </Box>
-        </Box>
-
-        {/* Testimonials */}
-        <Box mb={8}>
-          <Typography variant="h3" fontWeight={700} textAlign="center" mb={2}>
-            What Our Customers Say
-          </Typography>
-          <Typography 
-            variant="body1" 
-            textAlign="center" 
-            color="text.secondary" 
-            mb={5}
-            sx={{ maxWidth: 700, mx: 'auto' }}
-          >
-            Don't just take our word for it. Here's what our satisfied customers have to say about us.
-          </Typography>
-          <Grid container spacing={3}>
-            {testimonials.map((testimonial, index) => (
-              <Grid item xs={12} md={6} key={index}>
-                <Zoom in timeout={2400 + index * 100}>
-                  <Card
-                    elevation={0}
-                    sx={{
-                      height: '100%',
-                      border: '1px solid',
-                      borderColor: 'divider',
-                      transition: 'all 0.3s',
-                      '&:hover': {
-                        transform: 'translateY(-8px)',
-                        boxShadow: 6,
-                        borderColor: testimonial.color
-                      }
-                    }}
-                  >
-                    <CardContent sx={{ p: 4 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                        <Avatar
-                          sx={{
-                            width: 60,
-                            height: 60,
-                            bgcolor: testimonial.color,
-                            mr: 2,
-                            fontSize: '1.5rem',
-                            fontWeight: 700
-                          }}
-                        >
-                          {testimonial.avatar}
-                        </Avatar>
-                        <Box>
-                          <Typography variant="h6" fontWeight={600}>
-                            {testimonial.name}
-                          </Typography>
-                          <Typography variant="caption" color="text.secondary">
-                            {testimonial.role} • {testimonial.location}
-                          </Typography>
-                        </Box>
-                      </Box>
-                      <Rating value={testimonial.rating} readOnly sx={{ mb: 2 }} />
-                      <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
-                        "{testimonial.text}"
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Zoom>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+        <CustomerFeedback />
 
         {/* CTA Section */}
         <Fade in timeout={2800}>

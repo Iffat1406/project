@@ -1,61 +1,155 @@
-// Footer.jsx
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import React, { useState } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Container,
+  Box,
+  Button,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+  Grid,
+  Link,
+  Divider,
+  Menu,
+  MenuItem,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 
+// Footer Component
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light py-5 mt-5">
-      <Container>
-        <Row>
-          <Col md={4}>
-            {/* <img src='/images/logp.png' alt='LOGO' /> */}
-            <h4>About Us</h4>
-            <p>Your trusted cable and internet service provider. Fast, reliable, and affordable.</p>
+    <Box
+      component="footer"
+      sx={{
+        bgcolor: '#1a1a1a',
+        color: 'white',
+        py: 6,
+        mt: 8,
+      }}
+    >
+      <Container maxWidth="lg">
+        <Grid container spacing={4}>
+          {/* About Section */}
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" gutterBottom fontWeight={600}>
+              About Us
+            </Typography>
+            <Typography variant="body2" sx={{ mb: 3, lineHeight: 1.7, color: 'rgba(255,255,255,0.8)' }}>
+              Your trusted cable and internet service provider. Fast, reliable, and affordable.
+            </Typography>
+            <Typography variant="subtitle2" gutterBottom fontWeight={600}>
+              Follow Us On
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
+              <IconButton
+                component="a"
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: 'white',
+                  bgcolor: 'rgba(255,255,255,0.1)',
+                  '&:hover': {
+                    bgcolor: '#FF124F',
+                    transform: 'translateY(-3px)',
+                    transition: 'all 0.3s',
+                  },
+                }}
+              >
+                <InstagramIcon />
+              </IconButton>
+            </Box>
+          </Grid>
 
-              {/* Social media icons */}
-            <div>
-              <h6>Follow Us On</h6>
-              <div style={{ display: "flex", gap: "15px", marginTop: "10px" }}>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-light">
-                  <FaFacebookF size={22} />
-                </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-light">
-                  <FaTwitter size={22} />
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-light">
-                  <FaInstagram size={22} />
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-light">
-                  <FaLinkedin size={22} />
-                </a>
-              </div>
-            </div>
-          </Col>
+          {/* Quick Links */}
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" gutterBottom fontWeight={600}>
+              Quick Links
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              {[
+                { label: 'Home', path: '/' },
+                { label: 'Services', path: '/services' },
+                { label: 'Contact', path: '/contact' },
+              ].map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.path}
+                  underline="none"
+                  sx={{
+                    color: 'rgba(255,255,255,0.8)',
+                    '&:hover': {
+                      color: '#FF124F',
+                      pl: 1,
+                      transition: 'all 0.3s',
+                    },
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </Box>
+          </Grid>
 
-          <Col md={4}>
-            <h4> Links</h4>
-            <ul className="list-unstyled">
-              <li><a href="/" className="text-light">Home</a></li>
-              <li><a href="/services" className="text-light">Services</a></li>
-              <li><a href="/support" className="text-light">Support</a></li>
-              <li><a href="/contact" className="text-light">Contact</a></li>
-            </ul>
-          </Col>
+          {/* Contact Info */}
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" gutterBottom fontWeight={600}>
+              Contact Us
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+                <strong>Email:</strong> support@cablenet.com
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+                <strong>Phone:</strong> +1-800-123-4567
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+                <strong>Address:</strong> 123 Fiber St, Net City, IN 12345
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
 
-          <Col md={4}>
-            <h5>Contact Us</h5>
-            <p>Email: support@cablenet.com</p>
-            <p>Phone: +1-800-123-4567</p>
-            <p>Address: 123 Fiber St, Net City, IN 12345</p>
-          </Col>
-        </Row>
-        <hr className="bg-light" />
-        <p className="text-center mb-0">&copy; {new Date().getFullYear()} CableNet. All rights reserved.</p>
+        <Divider sx={{ my: 4, bgcolor: 'rgba(255,255,255,0.1)' }} />
+
+        <Typography variant="body2" align="center" sx={{ color: 'rgba(255,255,255,0.6)' }}>
+          &copy; {new Date().getFullYear()} CableNet. All rights reserved.
+        </Typography>
       </Container>
-    </footer>
+    </Box>
   );
 };
 
 export default Footer;
+
+// // Demo App
+// export default function App() {
+//   return (
+//     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+//       <CustomNavbar />
+      
+//       {/* Demo Content */}
+//       <Container maxWidth="lg" sx={{ flex: 1, py: 8 }}>
+//         <Typography variant="h3" gutterBottom fontWeight={700}>
+//           Welcome to CableNet
+//         </Typography>
+//         <Typography variant="body1" paragraph>
+//           Experience lightning-fast internet and crystal-clear cable TV with our premium services.
+//         </Typography>
+//         <Typography variant="body1" paragraph>
+//           Scroll down to see the footer or use the navigation menu above.
+//         </Typography>
+//       </Container>
+
+//       <Footer />
+//     </Box>
+//   );
+// }
