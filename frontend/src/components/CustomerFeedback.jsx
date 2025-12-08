@@ -1,397 +1,219 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Box,
-  Container,
   Typography,
-  Card,
-  CardContent,
   Avatar,
+  IconButton,
+  Container,
   Rating,
-  Pagination,
-  Grid,
-  Chip,
-  Paper,
-  Fade,
-  useTheme,
-  useMediaQuery
-} from '@mui/material';
-import {
-  FormatQuoteOutlined,
-  VerifiedOutlined
-} from '@mui/icons-material';
+} from "@mui/material";
+import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
+
+const testimonials = [
+  {
+    name: "Priya Kulkarni",
+    role: "Homemaker",
+    location: "Mahim, Mumbai",
+    rating: 5,
+    text: "The internet speed is amazing and the support team is always available. Best service provider in town! My kids can attend online classes without any buffering.",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+  },
+  {
+    name: "Rajesh Patil",
+    role: "Business Owner",
+    location: "Dadar, Mumbai",
+    rating: 5,
+    text: "Affordable packages and reliable connection. The installation was professional and quick.",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+  },
+  {
+    name: "Neha Sharma",
+    role: "Software Developer",
+    location: "Bandra, Mumbai",
+    rating: 5,
+    text: "Upload and download speeds are exactly as promised. Perfect for work from home!",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+  },
+];
 
 const CustomerFeedback = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const [index, setIndex] = useState(0);
 
-  const testimonials = [
-    {
-      name: 'Priya Kulkarni',
-      role: 'Homemaker',
-      location: 'Mahim, Mumbai',
-      rating: 5,
-      text: 'The internet speed is amazing and the support team is always available. Best service provider in town! My kids can attend online classes without any buffering.',
-      avatar: 'PK',
-      color: '#e91e63',
-      verified: true
-    },
-    {
-      name: 'Rajesh Patil',
-      role: 'Business Owner',
-      location: 'Dadar, Mumbai',
-      rating: 5,
-      text: 'Affordable packages and reliable connection. My family enjoys both internet and cable without interruptions. The installation was professional and quick.',
-      avatar: 'RP',
-      color: '#3f51b5',
-      verified: true
-    },
-    {
-      name: 'Neha Sharma',
-      role: 'Software Developer',
-      location: 'Bandra, Mumbai',
-      rating: 5,
-      text: 'They really care about customers. Installation was quick and hassle-free. The upload and download speeds are exactly as promised. Perfect for work from home!',
-      avatar: 'NS',
-      color: '#00bcd4',
-      verified: true
-    },
-    {
-      name: 'Amit Deshmukh',
-      role: 'Student',
-      location: 'Worli, Mumbai',
-      rating: 5,
-      text: 'Great service at an affordable price! The customer support team is very responsive and helped me choose the right plan for my studies and entertainment needs.',
-      avatar: 'AD',
-      color: '#4caf50',
-      verified: true
-    },
-    {
-      name: 'Sunita Joshi',
-      role: 'Teacher',
-      location: 'Andheri, Mumbai',
-      rating: 5,
-      text: 'Excellent service and very reliable. I conduct online classes daily and never face any connectivity issues. The customer care team is extremely helpful.',
-      avatar: 'SJ',
-      color: '#ff9800',
-      verified: true
-    },
-    {
-      name: 'Vikram Mehta',
-      role: 'Entrepreneur',
-      location: 'Powai, Mumbai',
-      rating: 5,
-      text: 'Best decision to switch to Radha Cable Net. The fiber optic connection is super fast and stable. Perfect for video conferences and large file transfers.',
-      avatar: 'VM',
-      color: '#9c27b0',
-      verified: true
-    },
-    {
-      name: 'Kavita Nair',
-      role: 'Content Creator',
-      location: 'Malad, Mumbai',
-      rating: 5,
-      text: 'As a content creator, I need fast upload speeds and Radha Cable Net delivers perfectly. No lag during live streaming and uploads are lightning fast!',
-      avatar: 'KN',
-      color: '#f44336',
-      verified: true
-    },
-    {
-      name: 'Suresh Kumar',
-      role: 'Retired Professional',
-      location: 'Borivali, Mumbai',
-      rating: 4,
-      text: 'Very satisfied with the cable TV channels and internet service. The staff is courteous and installation was done professionally. Good value for money.',
-      avatar: 'SK',
-      color: '#795548',
-      verified: true
-    },
-    {
-      name: 'Anjali Kapoor',
-      role: 'Graphic Designer',
-      location: 'Juhu, Mumbai',
-      rating: 5,
-      text: 'Amazing service! I work with large design files and the internet speed never disappoints. Customer support resolves queries quickly. Highly recommend!',
-      avatar: 'AK',
-      color: '#673ab7',
-      verified: true
-    },
-    {
-      name: 'Manoj Rao',
-      role: 'IT Professional',
-      location: 'Goregaon, Mumbai',
-      rating: 5,
-      text: 'Switched from another provider and the difference is night and day. Consistent speeds, minimal downtime, and great pricing. Excellent service overall!',
-      avatar: 'MR',
-      color: '#009688',
-      verified: true
-    },
-    {
-      name: 'Deepa Iyer',
-      role: 'Yoga Instructor',
-      location: 'Chembur, Mumbai',
-      rating: 5,
-      text: 'I conduct online yoga sessions and need reliable internet. Radha Cable Net has never let me down. The connection is stable even during peak hours.',
-      avatar: 'DI',
-      color: '#cddc39',
-      verified: true
-    },
-    {
-      name: 'Aditya Singh',
-      role: 'Gamer',
-      location: 'Kandivali, Mumbai',
-      rating: 5,
-      text: 'Low ping, high speeds, and no packet loss. Perfect for gaming! Finally found an ISP that understands what gamers need. Simply the best!',
-      avatar: 'AS',
-      color: '#ff5722',
-      verified: true
-    }
-  ];
+  // Auto-slide every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % testimonials.length);
+    }, 2000);
 
-  // Calculate pagination
-  const totalPages = Math.ceil(testimonials.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentTestimonials = testimonials.slice(startIndex, endIndex);
+    return () => clearInterval(interval);
+  }, []);
 
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const prevSlide = () => {
+    setIndex((index - 1 + testimonials.length) % testimonials.length);
+  };
+  const nextSlide = () => {
+    setIndex((index + 1) % testimonials.length);
   };
 
-  // Calculate average rating
-  const averageRating = (
-    testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length
-  ).toFixed(1);
+  const t = testimonials[index];
 
   return (
-    <Box sx={{ bgcolor: '#f5f5f5', minHeight: '100vh', py: 8 }}>
-      <Container maxWidth="lg">
-        {/* Header Section */}
-        <Fade in timeout={600}>
-          <Box textAlign="center" mb={6}>
-            <Typography
-              variant="h2"
-              component="h1"
-              gutterBottom
+    <Box
+      sx={{
+        width: "100%",
+        py: 12,
+        position: "relative",
+        background: "linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%)",
+        backgroundSize: "cover",
+      }}
+    >
+      <Container sx={{ textAlign: "center", position: "relative" }}>
+        {/* Top Heading */}
+        <Typography variant="overline" fontWeight={600} letterSpacing={2} sx={{ mb: 1, color: "#e91e63", fontSize: 14 }}>
+          TESTIMONIAL
+        </Typography>
+
+        <Typography variant="h3" fontWeight={700} sx={{ mb: 2 }}>
+          Your trusted Internet provider since 2015
+        </Typography>
+
+        <Typography variant="body1" sx={{ mb: 6, color: "#666", maxWidth: 700, mx: "auto" }}>
+          High-speed internet is now available even to remote areas with our satellite internet.
+        </Typography>
+
+        {/* Background Opening Quote */}
+        <Box
+          sx={{
+            fontSize: 180,
+            color: "#e91e63",
+            opacity: 0.8,
+            position: "absolute",
+            left: "5%",
+            top: "60%",
+            transform: "translateY(-50%)",
+            zIndex: 0,
+            userSelect: "none",
+            fontWeight: 700,
+            fontFamily: "Georgia, serif",
+          }}
+        >
+          ❝
+        </Box>
+
+        {/* Background Closing Quote */}
+        <Box
+          sx={{
+            fontSize: 180,
+            color: "#e91e63",
+            opacity: 0.8,
+            position: "absolute",
+            right: "5%",
+            top: "60%",
+            transform: "translateY(-50%)",
+            zIndex: 0,
+            userSelect: "none",
+            fontWeight: 700,
+            fontFamily: "Georgia, serif",
+          }}
+        >
+          ❞
+        </Box>
+
+        {/* Left Arrow */}
+        <IconButton
+          onClick={prevSlide}
+          sx={{
+            position: "absolute",
+            top: "60%",
+            left: 20,
+            transform: "translateY(-50%)",
+            backgroundColor: "#fff",
+            boxShadow: 2,
+            "&:hover": { backgroundColor: "#f2f2f2" },
+            zIndex: 3,
+          }}
+        >
+          <ArrowBackIosNew />
+        </IconButton>
+
+        {/* Right Arrow */}
+        <IconButton
+          onClick={nextSlide}
+          sx={{
+            position: "absolute",
+            top: "60%",
+            right: 20,
+            transform: "translateY(-50%)",
+            backgroundColor: "#fff",
+            boxShadow: 2,
+            "&:hover": { backgroundColor: "#f2f2f2" },
+            zIndex: 3,
+          }}
+        >
+          <ArrowForwardIos />
+        </IconButton>
+
+        {/* Avatar */}
+        <Avatar
+          src={t.image}
+          alt={t.name}
+          sx={{
+            width: 95,
+            height: 95,
+            mx: "auto",
+            mb: 3,
+            border: "3px solid #e91e63",
+            zIndex: 2,
+            position: "relative",
+          }}
+        />
+
+        <Rating value={t.rating} readOnly sx={{ mt: 1 }} />
+
+        {/* Text */}
+        <Typography
+          variant="body1"
+          sx={{
+            maxWidth: 750,
+            mx: "auto",
+            mb: 4,
+            color: "#444",
+            fontSize: 18,
+            lineHeight: 1.8,
+            zIndex: 2,
+            position: "relative",
+          }}
+        >
+          {t.text}
+        </Typography>
+
+        {/* Name */}
+        <Typography variant="h6" fontWeight={700}>
+          {t.name}
+        </Typography>
+
+        <Typography variant="body2" color="gray" sx={{ mt: 0.5 }}>
+          {t.role} — {t.location}
+        </Typography>
+
+        {/* Dots */}
+        <Box sx={{ display: "flex", justifyContent: "center", gap: 1.5, mt: 3 }}>
+          {testimonials.map((_, i) => (
+            <Box
+              key={i}
               sx={{
-                fontWeight: 700,
-                fontSize: { xs: '2rem', md: '3rem' },
-                color: 'primary.main'
+                width: 12,
+                height: 12,
+                borderRadius: "50%",
+                backgroundColor: i === index ? "#e91e63" : "#ccc",
+                transition: "0.3s",
               }}
-            >
-              Customer Feedback
-            </Typography>
-            <Typography
-              variant="h6"
-              color="text.secondary"
-              sx={{ maxWidth: 700, mx: 'auto', mb: 4 }}
-            >
-              Real stories from real customers who trust Radha Cable Net for their connectivity needs
-            </Typography>
-
-            {/* Rating Summary */}
-            <Paper
-              elevation={0}
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 2,
-                p: 3,
-                border: '1px solid',
-                borderColor: 'divider',
-                borderRadius: 2
-              }}
-            >
-              <Box textAlign="center">
-                <Typography variant="h3" fontWeight={700} color="primary">
-                  {averageRating}
-                </Typography>
-                <Rating value={parseFloat(averageRating)} readOnly precision={0.1} />
-                <Typography variant="body2" color="text.secondary" mt={1}>
-                  Based on {testimonials.length} reviews
-                </Typography>
-              </Box>
-            </Paper>
-          </Box>
-        </Fade>
-
-        {/* Testimonials Grid */}
-        <Grid container spacing={3} mb={5}>
-          {currentTestimonials.map((testimonial, index) => (
-            <Grid item xs={12} md={6} key={index}>
-              <Fade in timeout={800 + index * 100}>
-                <Card
-                  elevation={0}
-                  sx={{
-                    height: '100%',
-                    border: '2px solid',
-                    borderColor: 'divider',
-                    borderRadius: 3,
-                    position: 'relative',
-                    overflow: 'visible',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: '0 12px 24px rgba(0,0,0,0.12)',
-                      borderColor: testimonial.color
-                    }
-                  }}
-                >
-                  {/* Quote Icon */}
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      top: -20,
-                      left: 20,
-                      width: 50,
-                      height: 50,
-                      borderRadius: '50%',
-                      bgcolor: testimonial.color,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: 3
-                    }}
-                  >
-                    <FormatQuoteOutlined sx={{ color: 'white', fontSize: 28 }} />
-                  </Box>
-
-                  <CardContent sx={{ p: 4, pt: 5 }}>
-                    {/* Customer Info */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                      <Avatar
-                        sx={{
-                          width: 64,
-                          height: 64,
-                          bgcolor: testimonial.color,
-                          mr: 2,
-                          fontSize: '1.5rem',
-                          fontWeight: 700,
-                          boxShadow: 2
-                        }}
-                      >
-                        {testimonial.avatar}
-                      </Avatar>
-                      <Box flex={1}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
-                          <Typography variant="h6" fontWeight={600}>
-                            {testimonial.name}
-                          </Typography>
-                          {testimonial.verified && (
-                            <VerifiedOutlined
-                              sx={{ fontSize: 18, color: 'primary.main' }}
-                            />
-                          )}
-                        </Box>
-                        <Typography variant="caption" color="text.secondary" display="block">
-                          {testimonial.role}
-                        </Typography>
-                        <Chip
-                          label={testimonial.location}
-                          size="small"
-                          sx={{
-                            mt: 0.5,
-                            height: 20,
-                            fontSize: '0.7rem',
-                            bgcolor: 'grey.100'
-                          }}
-                        />
-                      </Box>
-                    </Box>
-
-                    {/* Rating */}
-                    <Box sx={{ mb: 2 }}>
-                      <Rating
-                        value={testimonial.rating}
-                        readOnly
-                        size="medium"
-                        sx={{
-                          '& .MuiRating-iconFilled': {
-                            color: testimonial.color
-                          }
-                        }}
-                      />
-                    </Box>
-
-                    {/* Feedback Text */}
-                    <Typography
-                      variant="body1"
-                      color="text.secondary"
-                      sx={{
-                        lineHeight: 1.8,
-                        fontStyle: 'italic',
-                        position: 'relative',
-                        pl: 2,
-                        borderLeft: '3px solid',
-                        borderColor: testimonial.color
-                      }}
-                    >
-                      "{testimonial.text}"
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Fade>
-            </Grid>
+            ></Box>
           ))}
-        </Grid>
-
-        {/* Pagination */}
-        <Fade in timeout={1200}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handlePageChange}
-              color="primary"
-              size={isMobile ? 'medium' : 'large'}
-              sx={{
-                '& .MuiPaginationItem-root': {
-                  fontWeight: 600
-                }
-              }}
-            />
-          </Box>
-        </Fade>
-
-        {/* Call to Action */}
-        <Fade in timeout={1400}>
-          <Paper
-            elevation={0}
-            sx={{
-              mt: 8,
-              p: 5,
-              textAlign: 'center',
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              color: 'white',
-              borderRadius: 3
-            }}
-          >
-            <Typography variant="h4" fontWeight={700} gutterBottom>
-              Join Our Happy Customers
-            </Typography>
-            <Typography variant="body1" sx={{ mb: 3, opacity: 0.95 }}>
-              Experience the same great service that our customers love. Get connected today!
-            </Typography>
-            <Chip
-              label="📞 Call: +91 8369108915"
-              sx={{
-                bgcolor: 'white',
-                color: 'primary.main',
-                fontWeight: 600,
-                fontSize: '1rem',
-                px: 2,
-                py: 3,
-                cursor: 'pointer',
-                '&:hover': {
-                  bgcolor: 'rgba(255,255,255,0.9)'
-                }
-              }}
-              onClick={() => window.location.href = 'tel:+918369108915'}
-            />
-          </Paper>
-        </Fade>
+        </Box>
       </Container>
     </Box>
   );
