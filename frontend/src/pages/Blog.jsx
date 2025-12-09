@@ -7,61 +7,28 @@ import {
   Card,
   CardContent,
   CardMedia,
-  CardActionArea,
-  Chip,
   Button,
-  TextField,
-  InputAdornment,
-  Avatar,
-  Paper,
-  Divider,
   Fade,
-  Zoom,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  Tabs,
-  Tab,
+  Chip,
+  Divider,
   Pagination
 } from '@mui/material';
 import {
-  SearchOutlined,
-  AccessTimeOutlined,
-  PersonOutlined,
-  TrendingUpOutlined,
-  WifiOutlined,
-  TvOutlined,
-  SecurityOutlined,
-  DevicesOutlined,
   CloseOutlined,
-  ShareOutlined,
-  BookmarkBorderOutlined,
-  ArrowForwardOutlined,
-  LocalOfferOutlined
+  PersonOutlined,
+  AccessTimeOutlined
 } from '@mui/icons-material';
 
 const Blog = () => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 6;
-
-  const categories = [
-    { id: 'all', label: 'All Posts', icon: <TrendingUpOutlined /> },
-    { id: 'internet', label: 'Internet Tips', icon: <WifiOutlined /> },
-    { id: 'cable', label: 'Cable TV', icon: <TvOutlined /> },
-    { id: 'technology', label: 'Technology', icon: <DevicesOutlined /> },
-    { id: 'security', label: 'Security', icon: <SecurityOutlined /> },
-    { id: 'company', label: 'Company News', icon: <TrendingUpOutlined /> }
-  ];
+  const postsPerPage = 9;
 
   const blogPosts = [
     {
@@ -74,8 +41,7 @@ const Blog = () => {
       date: '2025-11-10',
       readTime: '5 min read',
       image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800',
-      tags: ['Wi-Fi', 'Speed', 'Tips', 'Home Network'],
-      featured: true
+      tags: ['Wi-Fi', 'Speed', 'Tips', 'Home Network']
     },
     {
       id: 2,
@@ -87,8 +53,7 @@ const Blog = () => {
       date: '2025-11-08',
       readTime: '7 min read',
       image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800',
-      tags: ['Plans', 'Guide', 'Family', 'Internet Speed'],
-      featured: true
+      tags: ['Plans', 'Guide', 'Family', 'Internet Speed']
     },
     {
       id: 3,
@@ -100,8 +65,7 @@ const Blog = () => {
       date: '2025-11-05',
       readTime: '4 min read',
       image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=800',
-      tags: ['Cable TV', 'Channels', 'Entertainment', 'Guide'],
-      featured: false
+      tags: ['Cable TV', 'Channels', 'Entertainment', 'Guide']
     },
     {
       id: 4,
@@ -113,8 +77,7 @@ const Blog = () => {
       date: '2025-11-01',
       readTime: '6 min read',
       image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800',
-      tags: ['Fiber Optic', 'Technology', 'Speed', 'Infrastructure'],
-      featured: true
+      tags: ['Fiber Optic', 'Technology', 'Speed', 'Infrastructure']
     },
     {
       id: 5,
@@ -126,8 +89,7 @@ const Blog = () => {
       date: '2025-10-28',
       readTime: '8 min read',
       image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800',
-      tags: ['Security', 'Privacy', 'Cybersecurity', 'Protection'],
-      featured: false
+      tags: ['Security', 'Privacy', 'Cybersecurity', 'Protection']
     },
     {
       id: 6,
@@ -139,8 +101,7 @@ const Blog = () => {
       date: '2025-10-25',
       readTime: '3 min read',
       image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800',
-      tags: ['Expansion', 'Mumbai', 'News', 'Service Areas'],
-      featured: false
+      tags: ['Expansion', 'Mumbai', 'News', 'Service Areas']
     },
     {
       id: 7,
@@ -152,8 +113,7 @@ const Blog = () => {
       date: '2025-10-20',
       readTime: '5 min read',
       image: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800',
-      tags: ['Work From Home', 'Productivity', 'Remote Work', 'Tips'],
-      featured: false
+      tags: ['Work From Home', 'Productivity', 'Remote Work', 'Tips']
     },
     {
       id: 8,
@@ -165,8 +125,7 @@ const Blog = () => {
       date: '2025-10-15',
       readTime: '6 min read',
       image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=800',
-      tags: ['OTT', 'Cable TV', 'Comparison', 'Streaming'],
-      featured: false
+      tags: ['OTT', 'Cable TV', 'Comparison', 'Streaming']
     },
     {
       id: 9,
@@ -178,18 +137,9 @@ const Blog = () => {
       date: '2025-10-10',
       readTime: '7 min read',
       image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
-      tags: ['Smart Home', 'IoT', 'Bandwidth', 'Planning'],
-      featured: false
+      tags: ['Smart Home', 'IoT', 'Bandwidth', 'Planning']
     }
   ];
-
-  const recentPosts = blogPosts.slice(0, 5);
-  const popularTags = ['Wi-Fi', 'Speed', 'Security', 'Cable TV', 'Tips', 'Guide', 'Technology'];
-
-  const handleCategoryChange = (event, newValue) => {
-    setSelectedCategory(newValue);
-    setCurrentPage(1);
-  };
 
   const handleOpenDialog = (post) => {
     setSelectedPost(post);
@@ -201,27 +151,20 @@ const Blog = () => {
     setSelectedPost(null);
   };
 
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-
-  const featuredPost = blogPosts.find(post => post.featured);
+  const currentPosts = blogPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(blogPosts.length / postsPerPage);
 
   return (
-    <Box sx={{ bgcolor: '#f5f5f5', minHeight: '100vh' }}>
+    <Box sx={{ bgcolor: '#ffffff', minHeight: '100vh' }}>
+      {/* Header */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          color: 'white',
-          py: 8
+          bgcolor: 'white',
+          color: '#0a1f44',
+          py: 6,
+          borderBottom: '1px solid #e0e0e0'
         }}
       >
         <Container maxWidth="lg">
@@ -230,373 +173,127 @@ const Blog = () => {
               <Typography
                 variant="h2"
                 component="h1"
-                gutterBottom
                 sx={{
-                  fontWeight: 700,
-                  fontSize: { xs: '2rem', md: '3.5rem' },
-                  mb: 2
+                  fontWeight: 800,
+                  fontSize: { xs: '2.5rem', md: '4rem' },
+                  mb: 0,
+                  color: '#0a1f44',
+                  letterSpacing: '-0.02em'
                 }}
               >
-                Our Blog
+                News & Blogs
               </Typography>
-              <Typography 
-                variant="h6" 
-                sx={{ 
-                  maxWidth: 700, 
-                  mx: 'auto',
-                  opacity: 0.95,
-                  mb: 4
-                }}
-              >
-                Tips, guides, and updates about internet, cable TV, and technology
-              </Typography>
-
-              <Box sx={{ maxWidth: 600, mx: 'auto' }}>
-                <TextField
-                  fullWidth
-                  placeholder="Search articles..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchOutlined sx={{ color: 'white' }} />
-                      </InputAdornment>
-                    ),
-                    sx: {
-                      bgcolor: 'rgba(255,255,255,0.2)',
-                      color: 'white',
-                      borderRadius: 2,
-                      '& .MuiOutlinedInput-notchedOutline': {
-                        border: 'none'
-                      },
-                      '&::placeholder': {
-                        color: 'white',
-                        opacity: 0.7
-                      }
-                    }
-                  }}
-                />
-              </Box>
             </Box>
           </Fade>
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ py: 6 }}>
-        <Paper elevation={0} sx={{ mb: 4, border: '1px solid', borderColor: 'divider' }}>
-          <Tabs
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            sx={{ borderBottom: 1, borderColor: 'divider' }}
-          >
-            {categories.map((cat) => (
-              <Tab
-                key={cat.id}
-                value={cat.id}
-                icon={cat.icon}
-                label={cat.label}
-                iconPosition="start"
-                sx={{ textTransform: 'none', fontWeight: 600 }}
-              />
-            ))}
-          </Tabs>
-        </Paper>
-
+      {/* Blog Grid */}
+      <Container maxWidth="lg" sx={{ py: 8 }}>
         <Grid container spacing={4}>
-          <Grid item xs={12} lg={8}>
-            {selectedCategory === 'all' && !searchQuery && currentPage === 1 && featuredPost && (
-              <Zoom in timeout={800}>
+          {currentPosts.map((post, index) => (
+            <Grid item xs={12} md={4} key={post.id}>
+              <Fade in timeout={1000 + index * 100}>
                 <Card
                   elevation={0}
                   sx={{
-                    mb: 4,
-                    border: '2px solid',
-                    borderColor: 'primary.main',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: 4,
                     overflow: 'hidden',
+                    bgcolor: '#f8f9fa',
                     transition: 'all 0.3s',
+                    cursor: 'pointer',
                     '&:hover': {
                       transform: 'translateY(-8px)',
-                      boxShadow: 6
+                      boxShadow: '0 12px 24px rgba(0,0,0,0.1)'
                     }
                   }}
+                  onClick={() => handleOpenDialog(post)}
                 >
-                  <Chip
-                    label="FEATURED"
-                    color="primary"
-                    size="small"
-                    sx={{
-                      position: 'absolute',
-                      top: 16,
-                      left: 16,
-                      zIndex: 1,
-                      fontWeight: 700
-                    }}
+                  <CardMedia
+                    component="img"
+                    height="280"
+                    image={post.image}
+                    alt={post.title}
+                    sx={{ objectFit: 'cover' }}
                   />
-                  <CardActionArea onClick={() => handleOpenDialog(featuredPost)}>
-                    <CardMedia
-                      component="img"
-                      height="400"
-                      image={featuredPost.image}
-                      alt={featuredPost.title}
-                    />
-                    <CardContent sx={{ p: 4 }}>
-                      <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
-                        <Chip
-                          label={featuredPost.category}
-                          size="small"
-                          color="primary"
-                          variant="outlined"
-                        />
-                        {featuredPost.tags.slice(0, 2).map((tag) => (
-                          <Chip key={tag} label={tag} size="small" variant="outlined" />
-                        ))}
-                      </Box>
-                      <Typography variant="h4" fontWeight={700} gutterBottom>
-                        {featuredPost.title}
-                      </Typography>
-                      <Typography variant="body1" color="text.secondary" paragraph>
-                        {featuredPost.excerpt}
-                      </Typography>
-                      <Box sx={{ display: 'flex', gap: 3, alignItems: 'center', color: 'text.secondary' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                          <PersonOutlined fontSize="small" />
-                          <Typography variant="body2">{featuredPost.author}</Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                          <AccessTimeOutlined fontSize="small" />
-                          <Typography variant="body2">{featuredPost.readTime}</Typography>
-                        </Box>
-                      </Box>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              </Zoom>
-            )}
-
-            <Grid container spacing={3}>
-              {currentPosts.map((post, index) => (
-                <Grid item xs={12} sm={6} key={post.id}>
-                  <Fade in timeout={1000 + index * 100}>
-                    <Card
-                      elevation={0}
+                  <CardContent sx={{ flexGrow: 1, p: 3, pb: 3 }}>
+                    <Box
                       sx={{
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        border: '1px solid',
-                        borderColor: 'divider',
-                        transition: 'all 0.3s',
+                        bgcolor: '#000',
+                        color: 'white',
+                        px: 2,
+                        py: 0.5,
+                        borderRadius: 3,
+                        display: 'inline-block',
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                        mb: 2
+                      }}
+                    >
+                      {new Date(post.date).toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: '2-digit' 
+                      })}
+                    </Box>
+                    
+                    <Typography 
+                      variant="h5" 
+                      fontWeight={700}
+                      sx={{
+                        mb: 3,
+                        color: '#0a1f44',
+                        lineHeight: 1.3,
+                        minHeight: '64px'
+                      }}
+                    >
+                      {post.title}
+                    </Typography>
+                    
+                    <Button
+                      sx={{
+                        color: '#000',
+                        fontWeight: 600,
+                        fontSize: '0.9rem',
+                        textTransform: 'none',
+                        p: 0,
                         '&:hover': {
-                          transform: 'translateY(-8px)',
-                          boxShadow: 6,
-                          borderColor: 'primary.main'
+                          bgcolor: 'transparent',
+                          textDecoration: 'underline'
                         }
                       }}
                     >
-                      <CardActionArea onClick={() => handleOpenDialog(post)}>
-                        <CardMedia
-                          component="img"
-                          height="200"
-                          image={post.image}
-                          alt={post.title}
-                        />
-                        <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                          <Chip
-                            label={post.category}
-                            size="small"
-                            color="primary"
-                            variant="outlined"
-                            sx={{ mb: 2 }}
-                          />
-                          <Typography variant="h6" fontWeight={600} gutterBottom>
-                            {post.title}
-                          </Typography>
-                          <Typography 
-                            variant="body2" 
-                            color="text.secondary" 
-                            paragraph
-                            sx={{
-                              display: '-webkit-box',
-                              WebkitLineClamp: 3,
-                              WebkitBoxOrient: 'vertical',
-                              overflow: 'hidden'
-                            }}
-                          >
-                            {post.excerpt}
-                          </Typography>
-                          <Divider sx={{ my: 2 }} />
-                          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                              <AccessTimeOutlined fontSize="small" color="action" />
-                              <Typography variant="caption" color="text.secondary">
-                                {post.readTime}
-                              </Typography>
-                            </Box>
-                            <Button 
-                              size="small" 
-                              endIcon={<ArrowForwardOutlined />}
-                              sx={{ textTransform: 'none' }}
-                            >
-                              Read More
-                            </Button>
-                          </Box>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </Fade>
-                </Grid>
-              ))}
+                      Learn More
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Fade>
             </Grid>
-
-            {totalPages > 1 && (
-              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-                <Pagination
-                  count={totalPages}
-                  page={currentPage}
-                  onChange={(e, page) => setCurrentPage(page)}
-                  color="primary"
-                  size="large"
-                />
-              </Box>
-            )}
-          </Grid>
-
-          <Grid item xs={12} lg={4}>
-            <Paper elevation={0} sx={{ p: 3, mb: 3, border: '1px solid', borderColor: 'divider' }}>
-              <Typography variant="h6" fontWeight={600} gutterBottom>
-                Recent Posts
-              </Typography>
-              <Divider sx={{ mb: 2 }} />
-              <List>
-                {recentPosts.map((post) => (
-                  <ListItem
-                    key={post.id}
-                    button
-                    onClick={() => handleOpenDialog(post)}
-                    sx={{
-                      px: 0,
-                      '&:hover': { bgcolor: 'action.hover' }
-                    }}
-                  >
-                    <ListItemAvatar>
-                      <Avatar
-                        variant="rounded"
-                        src={post.image}
-                        sx={{ width: 60, height: 60 }}
-                      />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={post.title}
-                      secondary={post.date}
-                      primaryTypographyProps={{
-                        variant: 'body2',
-                        fontWeight: 600,
-                        sx: {
-                          display: '-webkit-box',
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: 'vertical',
-                          overflow: 'hidden'
-                        }
-                      }}
-                      sx={{ ml: 2 }}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-
-            <Paper elevation={0} sx={{ p: 3, mb: 3, border: '1px solid', borderColor: 'divider' }}>
-              <Typography variant="h6" fontWeight={600} gutterBottom>
-                Popular Tags
-              </Typography>
-              <Divider sx={{ mb: 2 }} />
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                {popularTags.map((tag) => (
-                  <Chip
-                    key={tag}
-                    label={tag}
-                    size="small"
-                    variant="outlined"
-                    icon={<LocalOfferOutlined />}
-                    sx={{
-                      cursor: 'pointer',
-                      '&:hover': {
-                        bgcolor: 'primary.main',
-                        color: 'white',
-                        borderColor: 'primary.main'
-                      }
-                    }}
-                  />
-                ))}
-              </Box>
-            </Paper>
-
-            <Paper 
-              elevation={0} 
-              sx={{ 
-                p: 3, 
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white'
-              }}
-            >
-              <Typography variant="h6" fontWeight={600} gutterBottom>
-                Subscribe to Our Newsletter
-              </Typography>
-              <Typography variant="body2" sx={{ mb: 3, opacity: 0.9 }}>
-                Get the latest articles and updates delivered to your inbox.
-              </Typography>
-              <TextField
-                fullWidth
-                placeholder="Your email"
-                size="small"
-                sx={{
-                  mb: 2,
-                  bgcolor: 'white',
-                  borderRadius: 1,
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { border: 'none' }
-                  }
-                }}
-              />
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{
-                  bgcolor: 'white',
-                  color: 'primary.main',
-                  fontWeight: 600,
-                  '&:hover': {
-                    bgcolor: 'rgba(255,255,255,0.9)'
-                  }
-                }}
-              >
-                Subscribe
-              </Button>
-            </Paper>
-
-            <Paper elevation={0} sx={{ p: 3, mt: 3, border: '1px solid', borderColor: 'divider', textAlign: 'center' }}>
-              <Typography variant="h6" fontWeight={600} gutterBottom>
-                Need Help?
-              </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
-                Our team is here to assist you with any questions about our services.
-              </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                href="tel:+918369108915"
-              >
-                Contact Support
-              </Button>
-            </Paper>
-          </Grid>
+          ))}
         </Grid>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={(e, page) => setCurrentPage(page)}
+              size="large"
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  fontSize: '1rem',
+                  fontWeight: 600
+                }
+              }}
+            />
+          </Box>
+        )}
       </Container>
 
+      {/* Dialog for Full Post */}
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
@@ -631,14 +328,14 @@ const Blog = () => {
                 <Chip
                   label={selectedPost.category}
                   size="small"
-                  color="primary"
+                  sx={{ bgcolor: '#000', color: 'white' }}
                 />
                 {selectedPost.tags.map((tag) => (
                   <Chip key={tag} label={tag} size="small" variant="outlined" />
                 ))}
               </Box>
 
-              <Typography variant="h4" fontWeight={700} gutterBottom>
+              <Typography variant="h4" fontWeight={700} gutterBottom sx={{ color: '#0a1f44' }}>
                 {selectedPost.title}
               </Typography>
 
@@ -662,7 +359,6 @@ const Blog = () => {
               <Typography 
                 variant="body1" 
                 color="text.secondary" 
-                paragraph
                 sx={{ 
                   fontSize: '1.1rem',
                   lineHeight: 1.8,
@@ -671,33 +367,9 @@ const Blog = () => {
               >
                 {selectedPost.content}
               </Typography>
-
-              <Divider sx={{ my: 3 }} />
-
-              <Box sx={{ display: 'flex', gap: 2, justifyContent: 'space-between', flexWrap: 'wrap' }}>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                  <Button
-                    variant="outlined"
-                    startIcon={<ShareOutlined />}
-                    size="small"
-                  >
-                    Share
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    startIcon={<BookmarkBorderOutlined />}
-                    size="small"
-                  >
-                    Save
-                  </Button>
-                </Box>
-                <Typography variant="caption" color="text.secondary" sx={{ alignSelf: 'center' }}>
-                  Written by {selectedPost.author} on {selectedPost.date}
-                </Typography>
-              </Box>
             </DialogContent>
             <DialogActions sx={{ p: 3, bgcolor: 'grey.50' }}>
-              <Button onClick={handleCloseDialog} variant="contained">
+              <Button onClick={handleCloseDialog} variant="contained" sx={{ bgcolor: '#0a1f44' }}>
                 Close
               </Button>
             </DialogActions>

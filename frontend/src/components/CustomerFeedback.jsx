@@ -32,7 +32,7 @@ const testimonials = [
     name: "Neha Sharma",
     role: "Software Developer",
     location: "Bandra, Mumbai",
-    rating: 5,
+    rating: 4,
     text: "Upload and download speeds are exactly as promised. Perfect for work from home!",
     image:
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
@@ -46,7 +46,7 @@ const CustomerFeedback = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % testimonials.length);
-    }, 2000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -84,43 +84,46 @@ const CustomerFeedback = () => {
           High-speed internet is now available even to remote areas with our satellite internet.
         </Typography>
 
-        {/* Background Opening Quote */}
-        <Box
-          sx={{
-            fontSize: 180,
-            color: "#e91e63",
-            opacity: 0.8,
-            position: "absolute",
-            left: "5%",
-            top: "60%",
-            transform: "translateY(-50%)",
-            zIndex: 0,
-            userSelect: "none",
-            fontWeight: 700,
-            fontFamily: "Georgia, serif",
-          }}
-        >
-          ❝
-        </Box>
+        {/* Background Opening Quote - Top Left (Before Left Arrow) */}
+        {/* Open Quote - Top Left Corner */}
+<Box
+  sx={{
+    fontSize: { xs: 100, md: 180 },
+    color: "#e91e63",
+    opacity: 0.25,
+    position: "absolute",
+    left: 0,
+    top: 0,
+    transform: "translate(-30%, -30%)",
+    zIndex: 0,
+    userSelect: "none",
+    fontWeight: 700,
+    fontFamily: "Georgia, serif",
+  }}
+>
+  ❝
+</Box>
 
-        {/* Background Closing Quote */}
-        <Box
-          sx={{
-            fontSize: 180,
-            color: "#e91e63",
-            opacity: 0.8,
-            position: "absolute",
-            right: "5%",
-            top: "60%",
-            transform: "translateY(-50%)",
-            zIndex: 0,
-            userSelect: "none",
-            fontWeight: 700,
-            fontFamily: "Georgia, serif",
-          }}
-        >
-          ❞
-        </Box>
+
+        {/* Close Quote - Bottom Right Corner */}
+<Box
+  sx={{
+    fontSize: { xs: 100, md: 180 },
+    color: "#e91e63",
+    opacity: 0.25,
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    transform: "translate(30%, 30%)",
+    zIndex: 0,
+    userSelect: "none",
+    fontWeight: 700,
+    fontFamily: "Georgia, serif",
+  }}
+>
+  ❞
+</Box>
+
 
         {/* Left Arrow */}
         <IconButton
@@ -128,7 +131,7 @@ const CustomerFeedback = () => {
           sx={{
             position: "absolute",
             top: "60%",
-            left: 20,
+            left: { xs: 10, md: 20 },
             transform: "translateY(-50%)",
             backgroundColor: "#fff",
             boxShadow: 2,
@@ -145,7 +148,7 @@ const CustomerFeedback = () => {
           sx={{
             position: "absolute",
             top: "60%",
-            right: 20,
+            right: { xs: 10, md: 20 },
             transform: "translateY(-50%)",
             backgroundColor: "#fff",
             boxShadow: 2,
@@ -161,8 +164,8 @@ const CustomerFeedback = () => {
           src={t.image}
           alt={t.name}
           sx={{
-            width: 95,
-            height: 95,
+            width: 100,
+            height: 100,
             mx: "auto",
             mb: 3,
             border: "3px solid #e91e63",

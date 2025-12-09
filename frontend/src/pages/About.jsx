@@ -44,7 +44,8 @@ import {
   LocalOfferOutlined
 } from '@mui/icons-material';
 import rdne from "../../public/images/rdne.jpg";
-import CustomerFeedback from "../components/CustomerFeedback"
+import CustomerFeedback from "../components/CustomerFeedback";
+import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
 
 const About = () => {
   const theme = useTheme();
@@ -240,7 +241,7 @@ const About = () => {
 
         {/* Our Story, Mission & Vision - Tabbed Section */}
         <Fade in timeout={1200}>
-          <Grid container spacing={6} mb={8} alignItems="center">
+          <Grid container spacing={6} mb={12} alignItems="center">
             {/* Right Side - Tabbed Content */}
             <Grid item xs={12} md={6}>
               <Box sx={{ mb: 2 }}>
@@ -267,8 +268,8 @@ const About = () => {
                 <Button
                   onClick={() => setActiveTab(0)}
                   sx={{
-                    bgcolor: activeTab === 0 ? '#000' : 'transparent',
-                    color: activeTab === 0 ? '#fff' : '#666',
+                    bgcolor: activeTab === 0 ? 'transparent' : 'transparent',
+                    color: activeTab === 0 ? '#e91e63' : '#666',
                     px: 3,
                     py: 1.5,
                     borderRadius: '8px 8px 0 0',
@@ -277,7 +278,7 @@ const About = () => {
                     fontSize: '1rem',
                     borderBottom: activeTab === 0 ? '3px solid #e91e63' : 'none',
                     '&:hover': {
-                      bgcolor: activeTab === 0 ? '#000' : '#f5f5f5'
+                      bgcolor: '#f5f5f5'
                     }
                   }}
                 >
@@ -400,106 +401,127 @@ const About = () => {
       </Container>
 
       {/* Stats Section - Full Width Red Background with Animation */}
-            <Box 
-          ref={statsRef}
-          sx={{ 
-            width: '100%',
-            bgcolor: '#d32f2f',
-            py: { xs: 6, md: 8 },
-            mb: 8
-          }}
-        >
-          <Container maxWidth="lg">
-            
-            <Grid 
-              container 
-              spacing={4} 
-              justifyContent="space-between"   // <-- spreads items
-              alignItems="center"
-            >
-              {[
-                { value: `${animatedStats.customers.toLocaleString()}+`, label: 'Happy Customers', icon: <PeopleOutlined /> },
-                { value: `${animatedStats.years}+`, label: 'Years of Service', icon: <EmojiEventsOutlined /> },
-                { value: `${animatedStats.uptime}%`, label: 'Uptime Guarantee', icon: <SecurityOutlined /> },
-                { value: animatedStats.support > 0 ? '24/7' : '0', label: 'Customer Support', icon: <SupportAgentOutlined /> }
-              ].map((stat, index) => (
-                
-                <Grid item xs={6} md={3} key={index}>   {/* each takes 25% width */}
-                  <Zoom in={isStatsVisible} timeout={500 + index * 200}>
-                    <Box textAlign="center" sx={{ pb: 2 }}>
-                      
-                      <Box sx={{ color: 'white', mb: 2 }}>
-                        {React.cloneElement(stat.icon, { sx: { fontSize: { xs: 40, md: 50 } } })}
-                      </Box>
-
-                      <Typography variant="h3" fontWeight={700} sx={{ color: 'white', mb: 1 }}>
-                        {stat.value}
-                      </Typography>
-
-                      <Typography 
-                        variant="body1" 
-                        sx={{ 
-                          color: 'rgba(255,255,255,0.95)', 
-                          fontWeight: 500,
-                          mt: 1.5
-                        }}
-                      >
-                        {stat.label}
-                      </Typography>
-
+      <Box 
+        ref={statsRef}
+        sx={{ 
+          width: '100%',
+          bgcolor: '#d32f2f',
+          py: { xs: 6, md: 8 },
+          mb: 12
+        }}
+      >
+        <Container maxWidth="lg">
+          
+          <Grid 
+            container 
+            spacing={4} 
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            {[
+              { value: `${animatedStats.customers.toLocaleString()}+`, label: 'Happy Customers', icon: <PeopleOutlined /> },
+              { value: `${animatedStats.years}+`, label: 'Years of Service', icon: <EmojiEventsOutlined /> },
+              { value: `${animatedStats.uptime}%`, label: 'Uptime Guarantee', icon: <SecurityOutlined /> },
+              { value: animatedStats.support > 0 ? '24/7' : '0', label: 'Customer Support', icon: <SupportAgentOutlined /> }
+            ].map((stat, index) => (
+              
+              <Grid item xs={6} md={3} key={index}>
+                <Zoom in={isStatsVisible} timeout={500 + index * 200}>
+                  <Box textAlign="center" sx={{ pb: 2 }}>
+                    
+                    <Box sx={{ color: 'white', mb: 2 }}>
+                      {React.cloneElement(stat.icon, { sx: { fontSize: { xs: 40, md: 50 } } })}
                     </Box>
-                  </Zoom>
-                </Grid>
 
-              ))}
-            </Grid>
+                    <Typography variant="h3" fontWeight={700} sx={{ color: 'white', mb: 1 }}>
+                      {stat.value}
+                    </Typography>
 
-          </Container>
-        </Box>
+                    <Typography 
+                      variant="body1" 
+                      sx={{ 
+                        color: 'rgba(255,255,255,0.95)', 
+                        fontWeight: 500,
+                        mt: 1.5
+                      }}
+                    >
+                      {stat.label}
+                    </Typography>
 
+                  </Box>
+                </Zoom>
+              </Grid>
 
-      <Container maxWidth="lg" sx={{ pb: 8 }}>
-        {/* Why Choose Us */}
-        <Box mb={8}>
-          <Typography variant="h3" fontWeight={700} textAlign="center" mb={2}>
-            Why Choose Radha Cable Net?
-          </Typography>
+            ))}
+          </Grid>
 
-          <Typography 
-            variant="body1" 
-            textAlign="center" 
-            color="text.secondary" 
-            mb={5}
-            sx={{ maxWidth: 700, mx: 'auto' }}
-          >
-            We're more than just an internet and cable provider. We're your partner in staying connected.
-          </Typography>
+        </Container>
+      </Box>
 
-          {/* Horizontal Scroll Row */}
-          <Box
-            sx={{
-              display: "flex",
-              gap: 3,
-              overflowX: "auto",
-              pb: 2,
-              "&::-webkit-scrollbar": { height: 8 },
-              "&::-webkit-scrollbar-thumb": { backgroundColor: "#bdbdbd", borderRadius: 4 }
-            }}
-          >
+      {/* Why Choose Us - Full Width Section with Background */}
+      <Box 
+        sx={{ 
+          width: '100%',
+          background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%)',
+          position: 'relative',
+          py: 10,
+          mb: 12,
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'radial-gradient(circle at 20% 50%, rgba(33, 150, 243, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(233, 30, 99, 0.08) 0%, transparent 50%)',
+            pointerEvents: 'none'
+          }
+        }}
+      >
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+          <Box mb={6}>
+            <Typography variant="h3" fontWeight={700} textAlign="center" mb={2}>
+              Why Choose Radha Cable Net?
+            </Typography>
+
+            <Typography 
+              variant="body1" 
+              textAlign="center" 
+              color="text.secondary" 
+              mb={5}
+              sx={{ maxWidth: 700, mx: 'auto' }}
+            >
+              We're more than just an internet and cable provider. We're your partner in staying connected.
+            </Typography>
+
+            {/* Horizontal Scroll Row */}
+            <Box
+              sx={{
+                display: "flex",
+                gap: 7,
+                overflowX: "auto",
+                pb: 2,
+                "&::-webkit-scrollbar": { height: 8 },
+                "&::-webkit-scrollbar-thumb": { backgroundColor: "#bdbdbd", borderRadius: 4 }
+              }}
+            >
             {whyChooseUs.map((item, index) => (
               <Zoom in timeout={1800 + index * 100} key={index}>
                 <Card
-                  elevation={0}
+                  elevation={3}
                   sx={{
                     minWidth: 260,
                     textAlign: 'center',
                     border: '1px solid',
                     borderColor: 'divider',
                     transition: 'all 0.3s',
+                    bgcolor: 'white',
                     '&:hover': {
                       transform: 'translateY(-12px)',
-                      boxShadow: 6,
-                      borderColor: item.color
+                      boxShadow: 8,
+                      borderColor: item.color,
+                      bgcolor: 'white'
                     }
                   }}
                 >
@@ -535,11 +557,15 @@ const About = () => {
                 </Card>
               </Zoom>
             ))}
+            </Box>
           </Box>
-        </Box>
+        </Container>
+      </Box>
+
+      <Container maxWidth="lg" sx={{ pb: 8 }}>
 
         {/* Core Values */}
-        <Box mb={8}>
+        <Box mb={12}>
           <Grid container spacing={4} alignItems="center">
             
             {/* LEFT SIDE – VALUES LIST */}
@@ -596,108 +622,10 @@ const About = () => {
           </Grid>
         </Box>  
 
-        {/* Performance Metrics */}
-        <Box mb={8}>
-          <Typography variant="h3" fontWeight={700} textAlign="center" mb={5}>
-            Our Performance
-          </Typography>
-          <Grid container spacing={4}>
-            {achievements.map((achievement, index) => (
-              <Grid item xs={12} sm={6} key={index}>
-                <Fade in timeout={2000 + index * 200}>
-                  <Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                      <Typography variant="body1" fontWeight={600}>
-                        {achievement.label}
-                      </Typography>
-                      <Typography variant="body1" fontWeight={700} color={achievement.color}>
-                        {achievement.value}%
-                      </Typography>
-                    </Box>
-                    <LinearProgress
-                      variant="determinate"
-                      value={achievement.value}
-                      sx={{
-                        height: 10,
-                        borderRadius: 5,
-                        bgcolor: 'grey.200',
-                        '& .MuiLinearProgress-bar': {
-                          bgcolor: achievement.color,
-                          borderRadius: 5
-                        }
-                      }}
-                    />
-                  </Box>
-                </Fade>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        <CustomerFeedback />
-
-        {/* CTA Section */}
-        {/* <Fade in timeout={2800}>
-          <Paper
-            elevation={0}
-            sx={{
-              p: 6,
-              textAlign: 'center',
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              color: 'white',
-              borderRadius: 3
-            }}
-          >
-            <Typography variant="h3" fontWeight={700} gutterBottom>
-              Get Connected With Us Today
-            </Typography>
-            <Typography variant="h6" sx={{ mb: 4, opacity: 0.95 }}>
-              Ready to experience seamless connectivity? Reach out to Radha Cable Net today.
-            </Typography>
-            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Button
-                variant="contained"
-                size="large"
-                startIcon={<PhoneOutlined />}
-                sx={{
-                  bgcolor: 'white',
-                  color: 'primary.main',
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
-                  '&:hover': {
-                    bgcolor: 'rgba(255,255,255,0.9)'
-                  }
-                }}
-                href="tel:+918369108915"
-              >
-                Call: +91 8369108915
-              </Button>
-              <Button
-                variant="outlined"
-                size="large"
-                startIcon={<EmailOutlined />}
-                sx={{
-                  borderColor: 'white',
-                  color: 'white',
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
-                  '&:hover': {
-                    borderColor: 'white',
-                    bgcolor: 'rgba(255,255,255,0.1)'
-                  }
-                }}
-                href="mailto:radhacablenet1@gmail.com"
-              >
-                Email Us
-              </Button>
-            </Box>
-          </Paper>
-        </Fade> */}
       </Container>
+
+      {/* Customer Feedback - Now Full Width Outside Container */}
+      <CustomerFeedback />
     </Box>
   );
 };
