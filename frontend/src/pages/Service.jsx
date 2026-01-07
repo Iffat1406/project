@@ -50,6 +50,7 @@ import {
   BusinessOutlined,
   SchoolOutlined
 } from '@mui/icons-material';
+import { motion } from "framer-motion";
 
 const Services = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -132,49 +133,56 @@ const Services = () => {
   ];
 
   const additionalServices = [
-    {
-      icon: <BuildOutlined />,
-      title: 'Installation & Setup',
-      description: 'Professional installation by certified technicians',
-      color: '#ff9800',
-      image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=300&h=200&fit=crop'
-    },
-    {
-      icon: <SupportAgentOutlined />,
-      title: '24/7 Customer Support',
-      description: 'Round-the-clock assistance for all your queries',
-      color: '#9c27b0',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=crop'
-    },
-    {
-      icon: <SettingsOutlined />,
-      title: 'Maintenance & Repairs',
-      description: 'Quick response time for any technical issues',
-      color: '#00bcd4',
-      image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=300&h=200&fit=crop'
-    },
-    {
-      icon: <SecurityOutlined />,
-      title: 'Network Security',
-      description: 'Secure connections with latest encryption',
-      color: '#f44336',
-      image: 'https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=300&h=200&fit=crop'
-    },
-    {
-      icon: <RouterOutlined />,
-      title: 'Router Upgrades',
-      description: 'Latest Wi-Fi 6 routers available for upgrade',
-      color: '#3f51b5',
-      image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=300&h=200&fit=crop'
-    },
-    {
-      icon: <DevicesOutlined />,
-      title: 'Multiple Device Support',
-      description: 'Connect unlimited devices simultaneously',
-      color: '#4caf50',
-      image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=300&h=200&fit=crop'
-    }
-  ];
+  {
+    icon: <BuildOutlined />,
+    title: 'Installation & Setup',
+    description: 'Professional installation by certified technicians.',
+    points: [
+      'Same-day installation',
+      'Clean & secure wiring',
+      'Router & device setup',
+      'Performance testing'
+    ],
+    color: '#ff9800',
+  },
+  {
+    icon: <SupportAgentOutlined />,
+    title: '24/7 Customer Support',
+    description: 'Always-on support whenever you need help.',
+    points: [
+      'Phone & WhatsApp support',
+      'Remote troubleshooting',
+      'Quick response time',
+      'Dedicated helpdesk'
+    ],
+    color: '#9c27b0',
+  },
+  {
+    icon: <SettingsOutlined />,
+    title: 'Maintenance & Repairs',
+    description: 'Fast issue resolution with expert technicians.',
+    points: [
+      'Preventive maintenance',
+      'On-site repair',
+      'Minimal downtime',
+      'Priority service'
+    ],
+    color: '#00bcd4',
+  },
+  {
+    icon: <SecurityOutlined />,
+    title: 'Network Security',
+    description: 'Safe and encrypted internet connections.',
+    points: [
+      'Firewall protection',
+      'Secure Wi-Fi setup',
+      'Parental controls',
+      'Threat monitoring'
+    ],
+    color: '#f44336',
+  },
+];
+
 
   const serviceCategories = [
     {
@@ -271,8 +279,44 @@ const Services = () => {
     handleCloseDialog();
   };
 
+  const leftImageVariant = {
+  hidden: { opacity: 0, x: -80 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
+const rightContentVariant = {
+  hidden: { opacity: 0, x: 80 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
+
   return (
     <Box sx={{ bgcolor: '#f8f9fa', minHeight: '100vh' }}>
+      {/* Add global keyframes for SVG animation */}
+      <style>
+        {`
+          @keyframes drawLine {
+            0% {
+              stroke-dashoffset: 200;
+            }
+            50% {
+              stroke-dashoffset: 0;
+            }
+            100% {
+              stroke-dashoffset: -200;
+            }
+          }
+        `}
+      </style>
+      
       {/* Hero Section */}
       <Box
         sx={{
@@ -363,134 +407,734 @@ const Services = () => {
             </Box>
           </Fade>
 
-          <Grid container spacing={3}>
-            {additionalServices.map((service, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Zoom in timeout={1000 + index * 100}>
-                  <Card
-                    elevation={0}
-                    sx={{
-                      height: '100%',
-                      border: '1px solid #e0e0e0',
-                      borderRadius: '12px',
-                      overflow: 'hidden',
-                      transition: 'all 0.4s',
-                      '&:hover': {
-                        transform: 'translateY(-12px)',
-                        boxShadow: '0 16px 32px rgba(0,0,0,0.1)',
-                        borderColor: service.color
-                      }
+          <Grid
+  container
+  spacing={3}
+  sx={{
+    flexWrap: 'nowrap',
+    overflowX: 'auto',
+    pb: 2,
+  }}
+>
+  {additionalServices.map((service, index) => (
+    <Grid
+      item
+      key={index}
+      sx={{ minWidth: { xs: '85%', sm: '60%', md: '30%', lg: '25%' } }}
+    >
+      <Zoom in timeout={1000 + index * 100}>
+        <Card
+          elevation={0}
+          sx={{
+            height: '100%',
+            border: '1px solid #e0e0e0',
+            borderRadius: '14px',
+            p: 3,
+            transition: 'all 0.4s ease',
+            backgroundColor: '#fff',
+            color: '#000',
+
+            '&:hover': {
+              backgroundColor: '#000',
+              color: '#fff',
+              transform: 'translateY(-10px)',
+              boxShadow: '0 18px 36px rgba(0,0,0,0.25)',
+              borderColor: '#000',
+            },
+
+            '&:hover .service-icon': {
+              color: '#fff',
+              backgroundColor: 'rgba(255,255,255,0.15)',
+            },
+
+            '&:hover .service-text': {
+              color: '#e0e0e0',
+            }
+          }}
+        >
+          <CardContent sx={{ p: 0 }}>
+            {/* Icon */}
+            <Box
+              className="service-icon"
+              sx={{
+                width: 56,
+                height: 56,
+                borderRadius: '12px',
+                bgcolor: `${service.color}20`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mb: 2,
+                color: service.color,
+                transition: 'all 0.3s',
+              }}
+            >
+              {React.cloneElement(service.icon, { sx: { fontSize: 28 } })}
+            </Box>
+
+            {/* Title */}
+            <Typography
+              variant="h6"
+              fontWeight={700}
+              gutterBottom
+            >
+              {service.title}
+            </Typography>
+
+            {/* Description */}
+            <Typography
+              variant="body2"
+              className="service-text"
+              sx={{ mb: 2, lineHeight: 1.6 }}
+            >
+              {service.description}
+            </Typography>
+
+            {/* Extra Content */}
+            <List dense>
+              {service.points.map((point, i) => (
+                <ListItem key={i} sx={{ px: 0, py: 0.3 }}>
+                  <ListItemIcon sx={{ minWidth: 26 }}>
+                    <CheckCircleOutlined
+                      sx={{ fontSize: 18, color: 'inherit' }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={point}
+                    primaryTypographyProps={{
+                      variant: 'body2',
+                      sx: { fontSize: '0.9rem' }
                     }}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="160"
-                      image={service.image}
-                      alt={service.title}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </CardContent>
+        </Card>
+      </Zoom>
+    </Grid>
+  ))}
+</Grid>
+
+        </Box>
+   
+        {/* Unlimited Network Section */}
+        <Box sx={{ mb: 10 }}>
+          <Grid container spacing={4} alignItems="center">
+            {/* Left Side - Visual Elements */}
+            <Grid item xs={12} md={6}>
+              <Box sx={{ position: 'relative', height: { xs: 450, md: 550 }, pl: { xs: 2, md: 4 } }}>
+                {/* Main Tower Card */}
+                <Paper
+                  elevation={4}
+                  sx={{
+                    position: 'absolute',
+                    left: { xs: '8%', md: '8%' },
+                    top: '8%',
+                    width: { xs: '42%', md: '40%' },
+                    height: '70%',
+                    bgcolor: '#000',
+                    borderRadius: '20px',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(255,255,255,0.03) 35px, rgba(255,255,255,0.03) 70px)',
+                      pointerEvents: 'none'
+                    }
+                  }}
+                >
+                  {/* Tower Icon */}
+                  <Box sx={{ position: 'relative', zIndex: 2 }}>
+                    <Box
                       sx={{
-                        objectFit: 'cover',
-                        transition: 'transform 0.4s',
-                        '&:hover': {
-                          transform: 'scale(1.05)'
+                        width: { xs: 100, md: 140 },
+                        height: { xs: 100, md: 140 },
+                        borderRadius: '50%',
+                        border: '3px solid #f44336',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'relative',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          width: '85%',
+                          height: '85%',
+                          borderRadius: '50%',
+                          border: '2px solid #f44336',
+                          opacity: 0.6
+                        },
+                        '&::after': {
+                          content: '""',
+                          position: 'absolute',
+                          width: '65%',
+                          height: '65%',
+                          borderRadius: '50%',
+                          border: '2px solid #f44336',
+                          opacity: 0.4
                         }
                       }}
-                    />
-                    <CardContent sx={{ p: 3 }}>
-                      <Box
-                        sx={{
-                          width: 50,
-                          height: 50,
-                          borderRadius: '10px',
-                          bgcolor: `${service.color}15`,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          mb: 2,
-                          color: service.color
-                        }}
-                      >
-                        {React.cloneElement(service.icon, { sx: { fontSize: 26 } })}
-                      </Box>
-                      <Typography variant="h6" fontWeight={700} gutterBottom sx={{ fontSize: '1.1rem' }}>
-                        {service.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                        {service.description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Zoom>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+                    >
+                      <RouterOutlined sx={{ fontSize: { xs: 45, md: 55 }, color: '#f44336' }} />
+                    </Box>
+                  </Box>
+                </Paper>
 
-
-        {/* Why Choose Us */}
-      <Fade in timeout={800}>
-        <Box sx={{ mb: 10 }}>
-          <Typography
-            variant="h3"
-            fontWeight={800}
-            textAlign="center"
-            mb={6}
-            sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' } }}
-          >
-            Why Choose Us?
-          </Typography>
-
-          <Grid container spacing={4}>
-            {whyChooseUs.map((item, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
+                {/* WiFi Icon Card - Middle Right */}
                 <Paper
-                  elevation={3}
+                  elevation={4}
                   sx={{
-                    p: 3,
-                    borderRadius: '16px',
-                    height: '100%',
-                    transition: 'all 0.3s',
+                    position: 'absolute',
+                    right: { xs: '8%', md: '10%' },
+                    top: { xs: '20%', md: '18%' },
+                    width: { xs: 220, md: 260 },
+                    height: { xs: 240, md: 280 },
+                    bgcolor: '#f5f5f5',
+                    borderRadius: '20px',
                     display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'flex-start',
-                    gap: 2,
-                    '&:hover': {
-                      transform: 'translateY(-10px)',
-                      boxShadow: '0px 10px 30px rgba(0,0,0,0.15)'
-                    }
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 2
                   }}
                 >
                   <Box
                     sx={{
-                      width: 50,
-                      height: 50,
-                      borderRadius: '12px',
-                      bgcolor: '#f0f4ff',
+                      width: { xs: 110, md: 130 },
+                      height: { xs: 110, md: 130 },
+                      borderRadius: '50%',
+                      border: '3px solid #f44336',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      flexShrink: 0
+                      position: 'relative',
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        width: '135%',
+                        height: '135%',
+                        borderRadius: '50%',
+                        border: '2px solid #f4433625',
+                      },
+                      '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        width: '170%',
+                        height: '170%',
+                        borderRadius: '50%',
+                        border: '2px solid #f4433615',
+                      }
                     }}
                   >
-                    {React.cloneElement(item.icon, { sx: { fontSize: 28, color: '#1565c0' } })}
+                    <WifiOutlined sx={{ fontSize: { xs: 45, md: 55 }, color: '#f44336' }} />
+                  </Box>
+                </Paper>
+
+                {/* WiFi Bottom Button */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    right: { xs: '15%', md: '18%' },
+                    bottom: { xs: '5%', md: '8%' },
+                    width: { xs: 70, md: 85 },
+                    height: { xs: 70, md: 85 },
+                    borderRadius: '50%',
+                    bgcolor: '#f44336',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 2,
+                    boxShadow: '0 8px 24px rgba(244, 67, 54, 0.3)'
+                  }}
+                >
+                  <WifiOutlined sx={{ fontSize: { xs: 32, md: 40 }, color: 'white' }} />
+                </Box>
+
+                {/* Decorative Icons */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: { xs: '3%', md: '5%' },
+                    left: { xs: '18%', md: '20%' },
+                    width: { xs: 45, md: 55 },
+                    height: { xs: 45, md: 55 },
+                    borderRadius: '50%',
+                    border: '2px dashed #f4433660',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <PhoneOutlined sx={{ fontSize: { xs: 18, md: 22 }, color: '#f4433680' }} />
+                </Box>
+
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: { xs: '5%', md: '8%' },
+                    right: { xs: '22%', md: '25%' },
+                    width: { xs: 55, md: 65 },
+                    height: { xs: 55, md: 65 },
+                    borderRadius: '50%',
+                    bgcolor: '#f44336',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 12px rgba(244, 67, 54, 0.25)'
+                  }}
+                >
+                  <RouterOutlined sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />
+                </Box>
+              </Box>
+            </Grid>
+
+            {/* Right Side - Content */}
+            <Grid item xs={12} md={6}>
+              <Box sx={{ pr: { xs: 0, md: 4 } }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2.5 }}>
+                  <Box
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: '8px',
+                      bgcolor: '#fff5f5',
+                      border: '2px solid #f44336',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <WifiOutlined sx={{ color: '#f44336', fontSize: 20 }} />
+                  </Box>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      color: '#f44336',
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.5px',
+                      fontSize: '0.9rem'
+                    }}
+                  >
+                    About Our Internet
+                  </Typography>
+                </Box>
+
+                <Typography
+                  variant="h3"
+                  fontWeight={800}
+                  sx={{
+                    fontSize: { xs: '1.8rem', md: '2.8rem' },
+                    mb: 3,
+                    lineHeight: 1.2
+                  }}
+                >
+                  We Provide{' '}
+                  <Box
+                    component="span"
+                    sx={{
+                      color: '#f44336',
+                      position: 'relative',
+                      display: 'inline-block',
+                      '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        bottom: 5,
+                        left: 0,
+                        right: 0,
+                        height: 12,
+                        bgcolor: '#f4433620',
+                        zIndex: -1,
+                        borderRadius: '4px'
+                      }
+                    }}
+                  >
+                    Unlimited
+                  </Box>{' '}
+                  Network For You.
+                </Typography>
+
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  sx={{ mb: 4, lineHeight: 1.8, fontSize: '1rem' }}
+                >
+                  Experience blazing-fast internet speeds with unlimited data for all your streaming, gaming, and browsing needs.
+                </Typography>
+
+                <Box sx={{ display: 'flex', gap: 4, mb: 4, alignItems: 'flex-start' }}>
+                  {/* Secure Internet */}
+                  <Box sx={{ flex: 1 }}>
+                    <Box
+                      sx={{
+                        width: 60,
+                        height: 60,
+                        borderRadius: '12px',
+                        bgcolor: '#fff5f5',
+                        border: '2px solid #f44336',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mb: 1.5
+                      }}
+                    >
+                      <SecurityOutlined sx={{ fontSize: 28, color: '#f44336' }} />
+                    </Box>
+                    <Typography variant="h6" fontWeight={700} gutterBottom sx={{ fontSize: '1.1rem' }}>
+                      Secure Internet
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6, fontSize: '0.9rem' }}>
+                      Protected connections with advanced encryption
+                    </Typography>
+                  </Box>
+
+                  {/* Speed Circle */}
+                  <Box sx={{ textAlign: 'center', flexShrink: 0 }}>
+                    <Box
+                      sx={{
+                        width: { xs: 110, md: 130 },
+                        height: { xs: 110, md: 130 },
+                        borderRadius: '50%',
+                        border: '8px solid #f44336',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'relative',
+                        mb: 1
+                      }}
+                    >
+                      <Typography
+                        variant="h3"
+                        fontWeight={800}
+                        sx={{ color: '#f44336', fontSize: { xs: '2.2rem', md: '2.8rem' }, lineHeight: 1 }}
+                      >
+                        50
+                      </Typography>
+                      <Typography variant="body2" fontWeight={600} sx={{ fontSize: '0.95rem' }}>
+                        Mbps
+                      </Typography>
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: -15,
+                          right: -25,
+                          fontSize: { xs: '3rem', md: '3.5rem' },
+                          color: '#f44336',
+                          fontWeight: 300
+                        }}
+                      >
+                        +
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+
+                {/* 4K & 8K Streaming */}
+                <Box sx={{ mb: 4 }}>
+                  <Box
+                    sx={{
+                      width: 60,
+                      height: 60,
+                      borderRadius: '12px',
+                      bgcolor: '#fff5f5',
+                      border: '2px solid #f44336',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mb: 1.5
+                    }}
+                  >
+                    <TvOutlined sx={{ fontSize: 28, color: '#f44336' }} />
+                  </Box>
+                  <Typography variant="h6" fontWeight={700} gutterBottom sx={{ fontSize: '1.1rem' }}>
+                    4K & 8K streaming
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6, fontSize: '0.9rem' }}>
+                    Ultra-high definition streaming without buffering
+                  </Typography>
+                </Box>
+
+                {/* Checkmarks */}
+                <Box sx={{ pl: 3, borderLeft: '3px solid #f44336' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
+                    <CheckCircleOutlined sx={{ color: '#f44336', fontSize: 20 }} />
+                    <Typography variant="body2" sx={{ fontSize: '0.95rem' }}>
+                      99.9% uptime guarantee
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                    <CheckCircleOutlined sx={{ color: '#f44336', fontSize: 20 }} />
+                    <Typography variant="body2" sx={{ fontSize: '0.95rem' }}>
+                      Free installation & setup
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </Container>
+      
+
+      {/* Cable TV Subscription Section - UPDATED WITH WHITE BACKGROUND AND ANIMATED UNDERLINE */}
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#ffffff', width: '100%', mt: { xs: 6, md: 10 }, mb: { xs: 6, md: 10 } }}>
+        <Container maxWidth="xl">
+          <Grid
+            container
+            spacing={{ xs: 6, md: 12 }}
+            alignItems="center"
+          >
+            {/* LEFT SIDE - IMAGE */}
+            <Grid item xs={12} md={6}>
+  <motion.div
+    variants={leftImageVariant}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.3 }}
+  >
+    <Box sx={{ position: "relative", textAlign: "center" }}>
+      
+      {/* 40% OFF Badge */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: -20,
+          left: -20,
+          width: 110,
+          height: 110,
+          borderRadius: "50%",
+          bgcolor: "#ff1744",
+          color: "#fff",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          fontWeight: 800,
+          boxShadow: "0 10px 30px rgba(255,23,68,0.45)",
+          zIndex: 2,
+        }}
+      >
+        <Typography variant="h4" fontWeight={800}>40%</Typography>
+        <Typography fontSize="0.9rem">OFF</Typography>
+      </Box>
+
+      {/* TV Image */}
+      <Box
+        component="img"
+        src="/images/tv.jpg"
+        alt="TV Subscription"
+        sx={{
+          width: "100%",
+          maxWidth: 700,
+          borderRadius: "18px",
+          boxShadow: "0 25px 60px rgba(0,0,0,0.25)",
+
+           transition: "transform 0.4s ease",
+    "&:hover": {
+      transform: "rotate(0deg) scale(1.05)",
+    },
+        }}
+      />
+
+      {/* Set-top Box Image BELOW TV */}
+      <Box
+        component="img"
+        src="/images/setupbox.png"
+        alt="Set Top Box"
+        sx={{
+    position: "absolute",
+    bottom: { xs: -30, md: -40 },
+      right: { xs: -200, md: -300 }, // 👉 MORE towards right
+
+    width: { xs: 500, md: 450 },   // 🔥 Bigger size
+    zIndex: 3,
+
+    filter: "drop-shadow(0 20px 35px rgba(0,0,0,0.45))",
+    transform: "rotate(-6deg)",
+
+    transition: "transform 0.4s ease",
+    "&:hover": {
+      transform: "rotate(0deg) scale(1.05)",
+    },
+  }}
+      />
+    </Box>
+  </motion.div>
+</Grid>
+
+
+            {/* RIGHT SIDE - CONTENT */}
+            <Grid item xs={12} md={6}>
+              <motion.div
+                variants={rightContentVariant}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+              >
+              <Box sx={{ textAlign: { xs: "center", md: "left" } }}>
+                {/* Tag */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.5,
+                    mb: 2.5,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: "8px",
+                      bgcolor: "#fff5f5",
+                      border: "2px solid #ff1744",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <TvOutlined sx={{ color: "#ff1744" }} />
                   </Box>
 
                   <Typography
-                    variant="body1"
-                    fontWeight={600}
-                    sx={{ lineHeight: 1.5 }}
+                    sx={{
+                      color: "#ff1744",
+                      fontWeight: 600,
+                      textTransform: "uppercase",
+                      fontSize: "0.9rem",
+                    }}
                   >
-                    {item.text}
+                    Subscribe Cable 
                   </Typography>
-                </Paper>
-              </Grid>
-            ))}
+                </Box>
+
+                {/* Heading */}
+                <Typography
+                  variant="h3"
+                  fontWeight={800}
+                  sx={{
+                    fontSize: { xs: "1.9rem", md: "2.8rem" },
+                    mb: 3,
+                    lineHeight: 1.2,
+                  }}
+                >
+                  Enjoy Sports{" "}
+                  <Box
+                    component="span"
+                    sx={{
+                      color: "#ff1744",
+                      position: "relative",
+                      display: "inline-block",
+                      pb: 1.5,
+                    }}
+                  >
+                    Movies
+                    <Box
+                      component="svg"
+                      sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "12px",
+                        overflow: "visible",
+                      }}
+                      viewBox="0 0 200 12"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M 0 6 Q 50 2, 100 6 T 200 6"
+                        fill="none"
+                        stroke="#ff1744"
+                        strokeWidth="3.5"
+                        strokeLinecap="round"
+                        style={{
+                          strokeDasharray: "200",
+                          strokeDashoffset: "200",
+                          animation: "drawLine 2.5s ease-in-out infinite",
+                        }}
+                      />
+                    </Box>
+                  </Box>
+                  ,<br />
+                  TV Shows & More.
+                </Typography>
+
+                {/* Description */}
+                <Typography
+                  color="text.secondary"
+                  sx={{ mb: 4, lineHeight: 1.8, fontSize: '1.05rem' }}
+                >
+                  Stream unlimited entertainment with premium channels featuring sports,
+                  <br /> blockbuster movies, trending TV shows, and exclusive content for the entire family.
+                </Typography>
+
+                {/* Price */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: 2,
+                    mb: 4,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
+                  <Typography sx={{ fontSize: "1.2rem", color: "#666" }}>
+                    $
+                  </Typography>
+                  <Typography
+                    variant="h2"
+                    fontWeight={800}
+                    sx={{ color: "#ff1744", lineHeight: 1 }}
+                  >
+                    25
+                  </Typography>
+                  <Typography sx={{ color: "#666" }}>/ 1 month</Typography>
+                </Box>
+
+                {/* Button */}
+                <Button
+                  variant="contained"
+                  size="large"
+                  endIcon={
+                    <ExpandMoreOutlined sx={{ transform: "rotate(-90deg)" }} />
+                  }
+                  sx={{
+                    bgcolor: "#ff1744",
+                    px: 5,
+                    py: 1.8,
+                    borderRadius: "50px",
+                    fontWeight: 700,
+                    textTransform: "none",
+                    boxShadow: "0 12px 30px rgba(255,23,68,0.45)",
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      bgcolor: "#e6003c",
+                      transform: "translateY(-3px)",
+                    },
+                  }}
+                >
+                  Check Availibility
+                </Button>
+              </Box>
+              </motion.div>
+            </Grid>
           </Grid>
-        </Box>
-      </Fade>
+        </Container>
+      </Box>
 
-
-    {/* FAQs */}
-        <Box mb={10}>
+      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 } }}>
+        {/* FAQs */}
+        <Box mb={10} mt={{ xs: 6, md: 10 }}>
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 4, md: 6 } }}>
             {/* Left Side - Ask Us Anything */}
             <Box sx={{ flex: { xs: '1 1 100%', md: '0 0 40%' } }}>
@@ -551,31 +1195,6 @@ const Services = () => {
                       />
                     </ListItem>
                   </List>
-
-                  <Button
-                    variant="contained"
-                    size="large"
-                    endIcon={<ExpandMoreOutlined sx={{ transform: 'rotate(-90deg)', fontSize: 20 }} />}
-                    onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
-                    sx={{
-                      bgcolor: '#f44336',
-                      fontWeight: 700,
-                      px: 4,
-                      py: 1.5,
-                      borderRadius: '50px',
-                      fontSize: '0.95rem',
-                      textTransform: 'none',
-                      boxShadow: '0 8px 16px rgba(244, 67, 54, 0.3)',
-                      transition: 'all 0.3s',
-                      '&:hover': {
-                        bgcolor: '#d32f2f',
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 12px 24px rgba(244, 67, 54, 0.4)'
-                      }
-                    }}
-                  >
-                    Learn More Us
-                  </Button>
                 </Box>
               </Fade>
             </Box>
@@ -656,7 +1275,7 @@ const Services = () => {
           </Box>
         </Box>
         
-          {/* Main Services */}
+        {/* Main Services */}
         <Box mb={10}>
           <Fade in timeout={600}>
             <Box textAlign="center" mb={6}>
@@ -678,18 +1297,18 @@ const Services = () => {
           </Fade>
 
           <Grid 
-              container 
-              spacing={4}
-              sx={{
-                display: 'flex',
-                flexWrap: 'nowrap',    
-                overflowX: 'auto',     
-                scrollBehavior: 'smooth',
-                pb: 2
-              }}
-            >
+            container 
+            spacing={4}
+            sx={{
+              display: 'flex',
+              flexWrap: 'nowrap',    
+              overflowX: 'auto',     
+              scrollBehavior: 'smooth',
+              pb: 2
+            }}
+          >
             {mainServices.map((service, index) => (
-              <Grid item  sx={{ minWidth: { xs: '85%', sm: '60%', md: '33%', lg: '28%' } }} key={service.id}>
+              <Grid item sx={{ minWidth: { xs: '85%', sm: '60%', md: '33%', lg: '28%' } }} key={service.id}>
                 <Zoom in timeout={900 + index * 150}>
                   <Card
                     elevation={0}
@@ -722,7 +1341,6 @@ const Services = () => {
                         }}
                       >
                         {React.cloneElement(service.icon, { sx: { fontSize: 32 } })}
-                        
                       </Box>
 
                       <Typography 
@@ -849,7 +1467,6 @@ const Services = () => {
             ))}
           </Grid>
         </Box>
-     
       </Container>
 
       {/* Inquiry Dialog */}
@@ -1006,4 +1623,4 @@ const Services = () => {
   );
 };
 
-export default Services
+export default Services;

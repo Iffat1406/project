@@ -259,46 +259,6 @@ const Contact = () => {
             >
               Experience reliable internet and cable services. We're here to help 24/7!
             </Typography>
-            
-            {/* Quick Action Buttons */}
-            {/* <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap', mt: 3 }}>
-              <Button
-                variant="contained"
-                startIcon={<WhatsApp />}
-                sx={{ 
-                  bgcolor: '#25D366', 
-                  '&:hover': { bgcolor: '#20BA5A' },
-                  textTransform: 'none',
-                  px: 3
-                }}
-                href="https://wa.me/918369108915"
-                target="_blank"
-              >
-                WhatsApp Us
-              </Button>
-              <Button
-                variant="contained"
-                startIcon={<PhoneOutlined />}
-                sx={{ 
-                  bgcolor: '#2196f3',
-                  textTransform: 'none',
-                  px: 3
-                }}
-                href="tel:+918369108915"
-              >
-                Call Now
-              </Button>
-              <Button
-                variant="outlined"
-                startIcon={<SupportAgentOutlined />}
-                sx={{ 
-                  textTransform: 'none',
-                  px: 3
-                }}
-              >
-                Live Chat
-              </Button>
-            </Box> */}
           </Box>
         </Fade>
 
@@ -624,7 +584,7 @@ const Contact = () => {
         </Fade>
 
         {/* Social Media & Emergency Contact - Fixed for Grid v2 */}
-        <Grid container spacing={4} sx={{ mb: 8 }}>
+        {/* <Grid container spacing={4} sx={{ mb: 8 }}>
           <Grid size={{ xs: 12, md: 6 }}>
             <Paper 
               elevation={0} 
@@ -682,7 +642,7 @@ const Contact = () => {
               </Typography>
             </Paper>
           </Grid>
-        </Grid>
+        </Grid> */}
 
         {/* Map Section */}
         <Fade in timeout={1600}>

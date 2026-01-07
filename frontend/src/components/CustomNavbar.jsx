@@ -19,6 +19,7 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CloseIcon from '@mui/icons-material/Close';
@@ -26,20 +27,9 @@ import CloseIcon from '@mui/icons-material/Close';
 const CustomNavbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const handlePlansClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePlansClose = () => {
-    setAnchorEl(null);
-  };
 
   const navItems = [
     { label: 'Home', path: '/' },
@@ -51,14 +41,33 @@ const CustomNavbar = () => {
   ];
 
   const drawer = (
-    <Box sx={{ width: 280 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
-        <Box component="img" src="/images/logo3.png" alt="CableNet Logo" sx={{ height: 40 }} />
+    <Box sx={{ width: 300 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          p: 2,
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box
+            component="img"
+            src="/images/logo3.png"
+            alt="CableNet Logo"
+            sx={{ height: 45 }}
+          />
+          <Typography fontWeight={700} fontSize="1.2rem">
+            Radha
+          </Typography>
+        </Box>
         <IconButton onClick={handleDrawerToggle}>
           <CloseIcon />
         </IconButton>
       </Box>
+
       <Divider />
+
       <List>
         {navItems.map((item) => (
           <React.Fragment key={item.label}>
@@ -84,6 +93,7 @@ const CustomNavbar = () => {
             )}
           </React.Fragment>
         ))}
+
         <ListItem sx={{ mt: 2 }}>
           <Button
             fullWidth
@@ -104,46 +114,61 @@ const CustomNavbar = () => {
     </Box>
   );
 
+  function handleDrawerToggle() {
+    setMobileOpen(!mobileOpen);
+  }
+  function handlePlansClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+  function handlePlansClose() {
+    setAnchorEl(null);
+  }
+
   return (
     <>
       <AppBar position="sticky" sx={{ bgcolor: 'white', boxShadow: 1 }}>
-        <Container maxWidth="lg">
-          <Toolbar disableGutters sx={{ justifyContent: 'space-between', py: 1 }}>
-            {/* Logo */}
-            <Box component="a" href="/" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-              <Box component="img" src="/images/logo3.png" alt="CableNet Logo" sx={{ height: 50 }} />
+        {/* ✅ Full width navbar */}
+        <Container maxWidth="xl">
+          <Toolbar
+            disableGutters
+            sx={{ justifyContent: 'space-between', py: 1.5 }}
+          >
+            {/* ✅ Bigger clear logo + company name */}
+            <Box
+              component="a"
+              href="/"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                textDecoration: 'none',
+              }}
+            >
+              <Box
+                component="img"
+                src="/images/logo3.png"
+                alt="CableNet Logo"
+                sx={{ height: 60 }}
+              />
+              <Typography
+                fontWeight={800}
+                fontSize="1.4rem"
+                color="text.primary"
+              >
+                CableNet
+              </Typography>
             </Box>
 
             {/* Desktop Navigation */}
             {!isMobile && (
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                <Button
-                  color="inherit"
-                  href="/"
-                  sx={{
-                    color: 'text.primary',
-                    fontWeight: 500,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    '&:hover': { color: '#FF124F', bgcolor: 'transparent' },
-                  }}
-                >
-                  Home
-                </Button>
+                <Button href="/" sx={navBtnStyle}>Home</Button>
 
-                {/* Plans Dropdown */}
                 <Box>
                   <Button
-                    color="inherit"
                     onClick={handlePlansClick}
                     endIcon={<KeyboardArrowDownIcon />}
-                    sx={{
-                      color: 'text.primary',
-                      fontWeight: 500,
-                      textTransform: 'none',
-                      fontSize: '1rem',
-                      '&:hover': { color: '#FF124F', bgcolor: 'transparent' },
-                    }}
+                    sx={navBtnStyle}
                   >
                     Plans
                   </Button>
@@ -151,103 +176,30 @@ const CustomNavbar = () => {
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                     onClose={handlePlansClose}
-                    MenuListProps={{
-                      onMouseLeave: handlePlansClose,
-                    }}
-                    PaperProps={{
-                      sx: { mt: 1 },
-                    }}
                   >
-                    <MenuItem 
-                      component="a" 
-                      href="/plans/internet" 
-                      onClick={handlePlansClose}
-                      sx={{ minWidth: 180 }}
-                    >
+                    <MenuItem href="/plans/internet" component="a">
                       Internet Plans
                     </MenuItem>
-                    <MenuItem 
-                      component="a" 
-                      href="/plans/cable" 
-                      onClick={handlePlansClose}
-                    >
+                    <MenuItem href="/plans/cable" component="a">
                       Cable Plans
                     </MenuItem>
                   </Menu>
                 </Box>
 
-                <Button
-                  color="inherit"
-                  href="/services"
-                  sx={{
-                    color: 'text.primary',
-                    fontWeight: 500,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    '&:hover': { color: '#FF124F', bgcolor: 'transparent' },
-                  }}
-                >
-                  Services
-                </Button>
-
-                <Button
-                  color="inherit"
-                  href="/blog"
-                  sx={{
-                    color: 'text.primary',
-                    fontWeight: 500,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    '&:hover': { color: '#FF124F', bgcolor: 'transparent' },
-                  }}
-                >
-                  Blog
-                </Button>
-
-                <Button
-                  color="inherit"
-                  href="/about"
-                  sx={{
-                    color: 'text.primary',
-                    fontWeight: 500,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    '&:hover': { color: '#FF124F', bgcolor: 'transparent' },
-                  }}
-                >
-                  About Us
-                </Button>
-
-                <Button
-                  color="inherit"
-                  href="/contact"
-                  sx={{
-                    color: 'text.primary',
-                    fontWeight: 500,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    '&:hover': { color: '#FF124F', bgcolor: 'transparent' },
-                  }}
-                >
-                  Contact
-                </Button>
+                {['services', 'blog', 'about', 'contact'].map((path) => (
+                  <Button key={path} href={`/${path}`} sx={navBtnStyle}>
+                    {path.charAt(0).toUpperCase() + path.slice(1)}
+                  </Button>
+                ))}
 
                 <Button
                   variant="contained"
                   href="/contact"
                   sx={{
                     bgcolor: '#FF124F',
-                    '&:hover': { 
-                      bgcolor: '#E01046',
-                      transform: 'translateY(-2px)',
-                      boxShadow: 3,
-                    },
+                    '&:hover': { bgcolor: '#E01046' },
                     px: 3,
-                    py: 1,
                     fontWeight: 600,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    transition: 'all 0.3s ease',
                   }}
                 >
                   Get Started
@@ -255,15 +207,8 @@ const CustomNavbar = () => {
               </Box>
             )}
 
-            {/* Mobile Menu Icon */}
             {isMobile && (
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="end"
-                onClick={handleDrawerToggle}
-                sx={{ color: 'text.primary' }}
-              >
+              <IconButton onClick={handleDrawerToggle}>
                 <MenuIcon />
               </IconButton>
             )}
@@ -271,24 +216,19 @@ const CustomNavbar = () => {
         </Container>
       </AppBar>
 
-      {/* Mobile Drawer - FIXED: Removed elevation prop */}
-      <Drawer
-        anchor="right"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true,
-        }}
-        PaperProps={{
-          sx: {
-            boxShadow: 3, // Use valid elevation value
-          }
-        }}
-      >
+      <Drawer anchor="right" open={mobileOpen} onClose={handleDrawerToggle}>
         {drawer}
       </Drawer>
     </>
   );
+};
+
+const navBtnStyle = {
+  color: 'text.primary',
+  fontWeight: 500,
+  textTransform: 'none',
+  fontSize: '1rem',
+  '&:hover': { color: '#FF124F', bgcolor: 'transparent' },
 };
 
 export default CustomNavbar;

@@ -1,171 +1,886 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Container,
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  Divider,
+  Fade,
+  Zoom,
+  Chip,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  useTheme,
+  useMediaQuery
+} from '@mui/material';
+import {
+  RocketLaunchOutlined,
+  TvOutlined,
+  HandshakeOutlined,
+  PublicOutlined,
+  PeopleOutlined,
+  ArrowForwardOutlined,
+  SpeedOutlined,
+  SecurityOutlined,
+  SupportAgentOutlined,
+  EmojiEventsOutlined,
+  CheckCircleOutlined,
+} from '@mui/icons-material';
+import CustomerFeedback from "../components/CustomerFeedback";
 import BannerCarousel from '../components/BannerCarousel';
 
 const Home = () => {
+  const theme = useTheme();
+  const navigate = useNavigate();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [activeTab, setActiveTab] = useState(0);
+  
+  // Stats animation state
+  const statsRef = useRef(null);
+  const [isStatsVisible, setIsStatsVisible] = useState(false);
+  const [animatedStats, setAnimatedStats] = useState({
+    customers: 0,
+    years: 0,
+    uptime: 0,
+    support: 0
+  });
+
+  const whatWeProvide = [
+    {
+      icon: <RocketLaunchOutlined />,
+      title: 'Lightning-Fast Internet',
+      description: 'Fiber-optic technology delivering speeds up to 200 Mbps with unlimited data for streaming, gaming, and remote work.',
+      color: '#2196f3',
+      bgColor: '#e3f2fd'
+    },
+    {
+      icon: <TvOutlined />,
+      title: 'Premium Cable TV',
+      description: '500+ HD and SD channels including entertainment, sports, news, movies, and regional content for the entire family.',
+      color: '#4caf50',
+      bgColor: '#e8f5e9'
+    },
+    {
+      icon: <SupportAgentOutlined />,
+      title: '24/7 Customer Support',
+      description: 'Round-the-clock technical support to resolve issues quickly and keep you connected without interruptions.',
+      color: '#ff9800',
+      bgColor: '#fff3e0'
+    },
+    {
+          icon: <PublicOutlined />,
+          title: 'Trusted Service',
+          description: 'Reliable connectivity with 99.9% uptime guarantee and consistent quality.',
+          color: '#9c27b0',
+          bgColor: '#f3e5f5'
+        }
+  ];
+
+  const whyChooseUs = [
+    {
+      icon: <RocketLaunchOutlined />,
+      title: 'High-Speed Internet',
+      description: 'Perfect for streaming, gaming, and remote work with fiber optic technology.',
+      color: '#2196f3',
+      bgColor: '#e3f2fd'
+    },
+    {
+      icon: <TvOutlined />,
+      title: 'Affordable Cable',
+      description: 'Entertainment for the whole family at fair prices with 500+ channels.',
+      color: '#4caf50',
+      bgColor: '#e8f5e9'
+    },
+    {
+      icon: <HandshakeOutlined />,
+      title: 'Customer First',
+      description: '24/7 support to keep you connected without worries or interruptions.',
+      color: '#ff9800',
+      bgColor: '#fff3e0'
+    },
+    {
+      icon: <PublicOutlined />,
+      title: 'Trusted Service',
+      description: 'Reliable connectivity with 99.9% uptime guarantee and consistent quality.',
+      color: '#9c27b0',
+      bgColor: '#f3e5f5'
+    }
+  ];
+
+  const internetPlans = [
+    {
+      speed: '50',
+      name: 'Basic',
+      price: 500,
+      features: ['Unlimited Data', 'Basic Speed', '1 Device', 'Email Support'],
+      color: '#2196f3'
+    },
+    {
+      speed: '100',
+      name: 'Premium',
+      price: 850,
+      popular: true,
+      features: ['Unlimited Data', 'Full HD Streaming', '4-5 Devices', '24/7 Support', 'Free Router'],
+      color: '#ff9800'
+    },
+    {
+      speed: '200',
+      name: 'Ultra',
+      price: 1300,
+      features: ['Unlimited Data', 'Ultra HD 4K', '10+ Devices', '24/7 Priority Support', 'Free Premium Router'],
+      color: '#f44336'
+    }
+  ];
+
+  const cablePlans = [
+    {
+      name: 'HD Package',
+      channels: 90,
+      price: 625,
+      description: 'Perfect for HD entertainment',
+      color: '#2196f3',
+      features: ['90 HD Channels', 'Entertainment Mix', 'Sports & News', 'Movies & Music']
+    },
+    {
+      name: 'HD Premium',
+      channels: 99,
+      price: 735,
+      description: 'Most popular for families',
+      popular: true,
+      color: '#ff9800',
+      features: ['99 HD Channels', 'Premium Entertainment', 'All Sports', 'Latest Movies']
+    },
+    {
+      name: 'Marathi Package',
+      channels: 90,
+      price: 440,
+      description: 'Best Marathi entertainment',
+      color: '#4caf50',
+      features: ['90 Marathi Channels', 'Local Entertainment', 'News & Movies', 'Music & Kids']
+    }
+  ];
+
+  // Intersection Observer for stats animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isStatsVisible) {
+          setIsStatsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => {
+      if (statsRef.current) {
+        observer.unobserve(statsRef.current);
+      }
+    };
+  }, [isStatsVisible]);
+
+  // Animate numbers when stats become visible
+  useEffect(() => {
+    if (!isStatsVisible) return;
+
+    const duration = 2000;
+    const steps = 60;
+    const stepDuration = duration / steps;
+    let currentStep = 0;
+
+    const timer = setInterval(() => {
+      currentStep++;
+      const progress = currentStep / steps;
+
+      setAnimatedStats({
+        customers: Math.floor(10000 * progress),
+        years: Math.floor(15 * progress),
+        uptime: (99.9 * progress).toFixed(1),
+        support: currentStep <= steps / 2 ? 0 : 24
+      });
+
+      if (currentStep >= steps) {
+        clearInterval(timer);
+        setAnimatedStats({
+          customers: 10000,
+          years: 15,
+          uptime: 99.9,
+          support: 24
+        });
+      }
+    }, stepDuration);
+
+    return () => clearInterval(timer);
+  }, [isStatsVisible]);
+
+  const handleBuyNow = (plan, type) => {
+    console.log(`Selected ${type} plan:`, plan);
+  };
+
   return (
-    <div>
-      {/* 1️⃣ Banner Carousel */}
+    <Box sx={{ bgcolor: '#f5f5f5', minHeight: '100vh' }}>
       <BannerCarousel />
 
-      2️⃣ Features / Why Choose Us
-      <section className="py-5 bg-light">
-        <div className="container">
-          <h2 className="text-center mb-4">Why Choose Us?</h2>
-          <div className="row text-center">
-            <div className="col-md-3 mb-3">
-              <div className="p-3 border rounded shadow-sm">
-                <i className="bi bi-speedometer2 display-4 text-primary"></i>
-                <h5 className="mt-2">High-Speed Internet</h5>
-                <p>Enjoy fast and reliable internet for all your needs.</p>
-              </div>
-            </div>
-            <div className="col-md-3 mb-3">
-              <div className="p-3 border rounded shadow-sm">
-                <i className="bi bi-telephone display-4 text-success"></i>
-                <h5 className="mt-2">24/7 Support</h5>
-                <p>Our team is always ready to help you anytime.</p>
-              </div>
-            </div>
-            <div className="col-md-3 mb-3">
-              <div className="p-3 border rounded shadow-sm">
-                <i className="bi bi-tv display-4 text-warning"></i>
-                <h5 className="mt-2">HD Cable Packages</h5>
-                <p>Access premium channels and entertainment bundles.</p>
-              </div>
-            </div>
-            <div className="col-md-3 mb-3">
-              <div className="p-3 border rounded shadow-sm">
-                <i className="bi bi-wallet2 display-4 text-danger"></i>
-                <h5 className="mt-2">Affordable Plans</h5>
-                <p>Plans that fit your budget without compromising quality.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ========== WHAT WE PROVIDE SECTION ========== */}
+      <Box 
+        sx={{ 
+          width: '100%',
+          bgcolor: 'white',
+          py: { xs: 8, md: 12 },
+          mb: 8,
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            right: -100,
+            width: 400,
+            height: 400,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(25, 118, 210, 0.1) 0%, transparent 70%)',
+            pointerEvents: 'none'
+          }}
+        />
+        
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+          <Box mb={6}>
+            <Typography variant="h3" fontWeight={700} textAlign="center" mb={2}>
+              What We Provide
+            </Typography>
 
-      {/* 3️⃣ Internet Plans */}
-      <section className="py-5">
-        <div className="container">
-          <h2 className="text-center mb-4">Internet Plans</h2>
-          <div className="row justify-content-center">
-            {[ 'Basic', 'Standard', 'Premium' ].map((plan, index) => (
-              <div className="col-md-4 mb-3" key={index}>
-                <div className="card text-center h-100 shadow-sm">
-                  <div className="card-body">
-                    <h5 className="card-title">{plan} Plan</h5>
-                    <p className="card-text">{(index+1)*50} Mbps</p>
-                    <h4>${29 + index*20}/mo</h4>
-                    <button className="btn btn-primary mt-3">Subscribe</button>
-                  </div>
-                </div>
-              </div>
+            <Typography 
+              variant="body1" 
+              textAlign="center" 
+              color="text.secondary" 
+              mb={5}
+              sx={{ maxWidth: 700, mx: 'auto' }}
+            >
+              We offer comprehensive connectivity solutions tailored to meet your entertainment and connectivity needs.
+            </Typography>
+
+      <Box
+  sx={{
+    display: "flex",
+    gap: 4,
+    justifyContent: "center",
+    flexWrap: "nowrap",
+  }}
+>
+  {whatWeProvide.map((item, index) => (
+    <Box sx={{ width: { xs: "100%", sm: "50%", md: "25%" } }} key={index}>
+      <Zoom in timeout={1800 + index * 100}>
+        <Card
+          elevation={3}
+          sx={{
+            height: "100%",
+            textAlign: "center",
+            border: "1px solid",
+            borderColor: "divider",
+            transition: "all 0.3s",
+            bgcolor: "white",
+            "&:hover": {
+              transform: "translateY(-12px)",
+              boxShadow: 8,
+              borderColor: item.color,
+            },
+          }}
+        >
+          <CardContent sx={{ p: 4 }}>
+            <Box
+              sx={{
+                width: 80,
+                height: 80,
+                borderRadius: "50%",
+                bgcolor: item.bgColor,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto 20px",
+                color: item.color,
+                transition: "transform 0.3s",
+                "&:hover": { transform: "rotate(360deg)" },
+              }}
+            >
+              {React.cloneElement(item.icon, { sx: { fontSize: 40 } })}
+            </Box>
+
+            <Typography variant="h6" fontWeight={600} gutterBottom>
+              {item.title}
+            </Typography>
+
+            <Typography variant="body2" color="text.secondary">
+              {item.description}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Zoom>
+    </Box>
+  ))}
+</Box>
+
+
+          </Box>
+        </Container>
+      </Box>
+
+      {/* ========== ABOUT US SECTION - FIXED ========== */}
+      <Box 
+        sx={{ 
+          width: '100%',
+          bgcolor: '#f5f5f5',
+          py: { xs: 8, md: 12 },
+          mb: 8,
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        <Container maxWidth="lg">
+          <Grid container spacing={6} alignItems="center">
+            {/* Left Side - Image */}
+            <Grid item xs={12} md={5} sx={{ pr: { md: 9 } }}>
+           <Zoom in timeout={800}>
+                <Box
+                  sx={{
+                    perspective: '1200px', // Important for 3D effect
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      height: { xs: 300, md: 400 },
+                      borderRadius: '30px 30px 30px 80px',
+                      overflow: 'hidden',
+                      border: '8px solid #d32f2f',
+                      boxShadow: '0 20px 60px rgba(211, 47, 47, 0.3)',
+                      transition: 'transform 0.4s ease',
+                      transformStyle: 'preserve-3d',
+
+                      "&:hover": {
+                        transform:
+                          "rotateX(10deg) rotateY(-10deg) rotateZ(2deg) scale(1.05)",
+                      },
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src="/images/hillaryfox.jpg"
+                      alt="Family watching TV"
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Box>
+                </Box>
+              </Zoom>
+            </Grid>
+
+            {/* Right Side - Content */}
+            <Grid item xs={12} md={7}>
+              <Fade in timeout={1000}>
+                <Box>
+                  <Typography 
+                    variant="overline" 
+                    sx={{ 
+                      color: '#d32f2f',
+                      fontWeight: 700,
+                      fontSize: '0.9rem',
+                      letterSpacing: 2,
+                      display: 'block',
+                      mb: 1
+                    }}
+                  >
+                    WHO WE ARE
+                  </Typography>
+                  
+                  <Typography 
+                    variant="h3" 
+                    fontWeight={900} 
+                    mb={3}
+                    sx={{ 
+                      color: '#000',
+                      lineHeight: 1.3,
+                      fontSize: { xs: '1.8rem', md: '2.5rem' }
+                    }}
+                  >
+                    Get TV service with your<br />internet service
+                  </Typography>
+
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      mb: 3, 
+                      lineHeight: 1.8, 
+                      color: '#333', 
+                      fontSize: '1rem',
+                      textAlign: 'justify'
+                    }}
+                  >
+                    Radha Cable Net is a leading internet and cable television <br />service provider serving thousands of households and businesses <br />in Maharashtra. Since our establishment in 2009, we have <br />been committed to delivering high-speed internet connectivity<br /> and premium entertainment options at affordable prices.
+                  </Typography>
+
+
+                  <Box sx={{ mt: 4 }}>
+                    <Button 
+                      variant="contained" 
+                      size="large"
+                      onClick={() => navigate('/about')}
+                      sx={{ 
+                        bgcolor: '#d32f2f',
+                        color: 'white',
+                        fontWeight: 700,
+                        px: 4,
+                        py: 1.5,
+                        fontSize: '1rem',
+                        transition: 'all 0.3s',
+                        '&:hover': {
+                          bgcolor: '#b71c1c',
+                          transform: 'translateX(5px)',
+                        }
+                      }}
+                      endIcon={<ArrowForwardOutlined />}
+                    >
+                      Read More
+                    </Button>
+                  </Box>
+                </Box>
+              </Fade>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+{/* WHY CHOOSE US - FULL WIDTH SECTION */}
+<Box
+  sx={{
+    width: "100vw",
+    position: "relative",
+    left: "50%",
+    right: "50%",
+    marginLeft: "-50vw",
+    marginRight: "-50vw",
+    overflow: "hidden",
+  }}
+>
+  <Grid
+    container
+    spacing={0}
+    sx={{
+      flexWrap: "nowrap",   // ⭐ FIX: prevents content from dropping down
+      height: { md: 600, xs: "auto" },
+    }}
+  >
+
+    {/* LEFT IMAGE */}
+    <Grid item xs={12} md={6}>
+      <Box
+        component="img"
+        src="/images/shvetsa.jpg"
+        alt="Why Choose Us"
+        sx={{
+           width: "100%",
+          height: "100%",
+          maxHeight: { md: "600px", xs: "350px" },  // ⭐ prevents image cutting
+          objectFit: "cover",
+          objectPosition: "center",
+          display: "block",
+        }}
+      />
+    </Grid>
+
+    {/* RIGHT CONTENT */}
+    <Grid item xs={12} md={6}>
+      <Box
+        sx={{
+          bgcolor: "#030322ff",
+          height: "600px",          // ⭐ FIX: makes both sides equal height
+          p: { xs: 4, md: 7 },
+           pl: { xs: 4, md: 40 },
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <Typography
+          variant="overline"
+          sx={{
+            color: "#f61818ff",
+            fontWeight: 700,
+            letterSpacing: 2,
+            mb: 2,
+          }}
+        >
+          WHY CHOOSE US
+        </Typography>
+
+        <Typography
+          variant="h3"
+          sx={{
+            color: "white",
+            fontWeight: 700,
+            mb: 2,
+            lineHeight: 1.3,
+          }}
+        >
+          We're Connecting You To <br /> Everything That Matters
+        </Typography>
+
+        <Typography
+          sx={{
+            mb: 5,
+            color: "rgba(255,255,255,0.7)",
+            maxWidth: "85%",
+            lineHeight: 1.6,
+          }}
+        >
+          Experience seamless connectivity with our
+          cutting-edge internet and cable services<br /> 
+          designed to keep you connected to what matters most.
+        </Typography>
+
+        {/* FEATURES */}
+        <Grid container spacing={4}>
+          {[
+            {
+              icon: <SpeedOutlined />,
+              title: "Fast Connected",
+              description: "Lightning-fast fiber optic internet <br />for seamless streaming and browsing",
+            },
+            {
+              icon: <TvOutlined />,
+              title: "Satellite TV",
+              description: "500+ premium channels with HD<br /> qualityentertainment options",
+            },
+            {
+              icon: <HandshakeOutlined />,
+              title: "Free Installation",
+              description: "Professional installation at no <br />extra cost with expert setup",
+            },
+            {
+              icon: <SecurityOutlined />,
+              title: "Home Security",
+              description: "Secure and reliable connection with<br /> 99.9% uptime guarantee",
+            },
+            {
+              icon: <SupportAgentOutlined />,
+              title: "Support 24/7",
+              description: "Round-the-clock customer support for<br /> all your connectivity needs",
+            },
+            {
+              icon: <EmojiEventsOutlined />,
+              title: "Best Pricing",
+              description: "Affordable plans with  transparent<br /> pricing and  no hidden charges",
+            },
+          ].map((item, i) => (
+            <Grid item xs={12} sm={6} key={i}>
+              <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2.5 }}>
+                <Box 
+                  sx={{ 
+                    mt: 0.5, 
+                    color: "#f42121ff", 
+                    flexShrink: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 32,
+                    height: 32,
+                  }}
+                >
+                  {React.cloneElement(item.icon, { sx: { fontSize: 28 } })}
+                </Box>
+
+                <Box sx={{ flex: 1 }}>
+                  <Typography
+                    sx={{ 
+                      color: "white", 
+                      fontWeight: 700, 
+                      mb: 0.8, 
+                      fontSize: "1rem" 
+                    }}
+                  >
+                    {item.title}
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      color: "rgba(255,255,255,0.7)",
+                      fontSize: "0.9rem",
+                      lineHeight: 1.6,
+                      "& br": {
+                        display: "block",
+                        content: '""',
+                      }
+                    }}
+                  >
+                    {item.description.split("<br />").map((text, idx, arr) => (
+                      <span key={idx}>
+                        {text}
+                        {idx < arr.length - 1 && <br />}
+                      </span>
+                    ))}
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Grid>
+
+  </Grid>
+</Box>
+
+
+
+      {/* Internet Plans Section */}
+      <Box sx={{ py: 8, mb: 6 }}>
+        <Container maxWidth="lg">
+          <Box textAlign="center" mb={6}>
+            <Chip
+              label="HIGH-SPEED INTERNET"
+              color="primary"
+              sx={{ mb: 2, fontWeight: 600 }}
+            />
+            <Typography variant="h4" fontWeight={700} mb={2}>
+              Internet Plans for Every Need
+            </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{ maxWidth: 700, mx: 'auto', mb: 1 }}
+            >
+              Choose the perfect internet plan tailored to your needs. Whether you're a light user or a power user, we have an option for everyone.
+            </Typography>
+          </Box>
+
+          <Grid container spacing={4} mb={4} justifyContent="center">
+            {internetPlans.map((plan, index) => (
+              <Grid item xs={12} sm={8} md={4} key={index}>
+                <Card
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    border: plan.popular ? `3px solid ${plan.color}` : '1px solid #e0e0e0',
+                    transition: 'all 0.3s',
+                    position: 'relative',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: 6,
+                    },
+                  }}
+                >
+                  {plan.popular && (
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: -15,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        bgcolor: plan.color,
+                        color: 'white',
+                        px: 2,
+                        py: 0.5,
+                        borderRadius: 2,
+                        fontWeight: 700,
+                        fontSize: '0.85rem'
+                      }}
+                    >
+                      MOST POPULAR
+                    </Box>
+                  )}
+
+                  <CardContent sx={{ flexGrow: 1, p: 4, textAlign: 'center' }}>
+                    <Typography variant="h5" fontWeight={700} mb={2}>
+                      {plan.name}
+                    </Typography>
+
+                    <Box sx={{ mb: 3 }}>
+                      <Typography variant="h3" fontWeight={700} color="primary">
+                        {plan.speed}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Mbps
+                      </Typography>
+                    </Box>
+
+                    <Typography variant="h4" fontWeight={700} color={plan.color} mb={3}>
+                      ₹{plan.price}/month
+                    </Typography>
+
+                    <Divider sx={{ my: 3 }} />
+
+                    <List dense sx={{ textAlign: 'left' }}>
+                      {plan.features.map((feature, i) => (
+                        <ListItem key={i}>
+                          <ListItemIcon sx={{ minWidth: 32 }}>
+                            <CheckCircleOutlined sx={{ color: plan.color }} />
+                          </ListItemIcon>
+                          <ListItemText primary={feature} />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </CardContent>
+
+                  <Box sx={{ p: 2 }}>
+                    <Button
+                      fullWidth
+                      variant={plan.popular ? 'contained' : 'outlined'}
+                      sx={{
+                        fontWeight: 600,
+                        bgcolor: plan.popular ? plan.color : 'transparent',
+                        borderColor: plan.color,
+                        color: plan.popular ? 'white' : plan.color,
+                      }}
+                      onClick={() => handleBuyNow(plan, 'internet')}
+                    >
+                      Get Started
+                    </Button>
+                  </Box>
+                </Card>
+              </Grid>
             ))}
-          </div>
-        </div>
-      </section>
+          </Grid>
+        </Container>
+      </Box>
 
-      {/* 4️⃣ Cable Plans */}
-      <section className="py-5 bg-light">
-        <div className="container">
-          <h2 className="text-center mb-4">Cable TV Plans</h2>
-          <div className="row justify-content-center">
-            {[ 'Basic', 'Entertainment', 'Premium' ].map((plan, index) => (
-              <div className="col-md-4 mb-3" key={index}>
-                <div className="card text-center h-100 shadow-sm">
-                  <div className="card-body">
-                    <h5 className="card-title">{plan} Package</h5>
-                    <p className="card-text">{5 + index*5} HD Channels</p>
-                    <h4>${19 + index*15}/mo</h4>
-                    <button className="btn btn-success mt-3">Subscribe</button>
-                  </div>
-                </div>
-              </div>
+      {/* Cable Plans Section */}
+      <Box sx={{ py: 8, mb: 6, bgcolor: 'white' }}>
+        <Container maxWidth="lg">
+          <Box textAlign="center" mb={6}>
+            <Chip label="CABLE TV PACKAGES" color="error" sx={{ mb: 2, fontWeight: 600 }} />
+            <Typography variant="h4" fontWeight={700} mb={2}>
+              Cable TV Plans for Every Entertainment Need
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 700, mx: 'auto', mb: 1 }}>
+              Experience premium entertainment with our diverse cable TV packages featuring 500+ channels.
+            </Typography>
+          </Box>
+
+          <Grid container spacing={4} mb={4} justifyContent="center">
+            {cablePlans.map((plan, index) => (
+              <Grid item xs={12} sm={8} md={4} key={index}>
+                <Card
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    border: plan.popular ? `3px solid ${plan.color}` : '1px solid #e0e0e0',
+                    transition: 'all 0.3s',
+                    position: 'relative',
+                    '&:hover': { transform: 'translateY(-8px)', boxShadow: 6 },
+                  }}
+                >
+                  {plan.popular && (
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: -15,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        bgcolor: plan.color,
+                        color: 'white',
+                        px: 2,
+                        py: 0.5,
+                        borderRadius: 2,
+                        fontWeight: 700,
+                        fontSize: '0.85rem'
+                      }}
+                    >
+                      MOST POPULAR
+                    </Box>
+                  )}
+
+                  <CardContent sx={{ flexGrow: 1, p: 4, textAlign: 'center' }}>
+                    <Typography variant="h5" fontWeight={700} mb={2}>{plan.name}</Typography>
+                    <Box sx={{ mb: 3 }}>
+                      <Typography variant="h3" fontWeight={700} color="error">{plan.channels}</Typography>
+                      <Typography variant="body2" color="text.secondary">Channels</Typography>
+                    </Box>
+                    <Typography variant="h4" fontWeight={700} color={plan.color} mb={2}>
+                      ₹{plan.price}/month
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" mb={3}>{plan.description}</Typography>
+                    <Divider sx={{ my: 3 }} />
+                    <List dense sx={{ textAlign: 'left' }}>
+                      {plan.features.map((feature, i) => (
+                        <ListItem key={i}>
+                          <ListItemIcon sx={{ minWidth: 32 }}>
+                            <CheckCircleOutlined sx={{ color: plan.color }} />
+                          </ListItemIcon>
+                          <ListItemText primary={feature} />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </CardContent>
+
+                  <Box sx={{ p: 2 }}>
+                    <Button
+                      fullWidth
+                      variant={plan.popular ? 'contained' : 'outlined'}
+                      sx={{
+                        fontWeight: 600,
+                        bgcolor: plan.popular ? plan.color : 'transparent',
+                        borderColor: plan.color,
+                        color: plan.popular ? 'white' : plan.color,
+                      }}
+                      onClick={() => handleBuyNow(plan, 'cable')}
+                    >
+                      Subscribe Now
+                    </Button>
+                  </Box>
+                </Card>
+              </Grid>
             ))}
-          </div>
-        </div>
-      </section>
+          </Grid>
+        </Container>
+      </Box>
 
-      {/* 5️⃣ Customer Testimonials */}
-      <section className="py-5">
-        <div className="container">
-          <h2 className="text-center mb-4">What Our Customers Say</h2>
-          <div className="row justify-content-center">
-            {[1,2,3].map((item) => (
-              <div className="col-md-4 mb-3" key={item}>
-                <div className="card p-3 shadow-sm">
-                  <p>"Excellent service! Fast internet and great cable packages."</p>
-                  <h6 className="text-end">- Customer {item}</h6>
-                </div>
-              </div>
+      {/* Stats Section */}
+      <Box ref={statsRef} sx={{ width: '100%', bgcolor: '#d32f2f', py: { xs: 6, md: 8 }, mb: 12 }}>
+        <Container maxWidth="lg">
+          <Grid container spacing={4} justifyContent="space-between" alignItems="center">
+            {[
+              { value: `${animatedStats.customers.toLocaleString()}+`, label: 'Happy Customers', icon: <PeopleOutlined /> },
+              { value: `${animatedStats.years}+`, label: 'Years of Service', icon: <EmojiEventsOutlined /> },
+              { value: `${animatedStats.uptime}%`, label: 'Uptime Guarantee', icon: <SecurityOutlined /> },
+              { value: animatedStats.support > 0 ? '24/7' : '0', label: 'Customer Support', icon: <SupportAgentOutlined /> }
+            ].map((stat, index) => (
+              <Grid item xs={6} md={3} key={index}>
+                <Zoom in={isStatsVisible} timeout={500 + index * 200}>
+                  <Box textAlign="center" sx={{ pb: 2 }}>
+                    <Box sx={{ color: 'white', mb: 2 }}>
+                      {React.cloneElement(stat.icon, { sx: { fontSize: { xs: 40, md: 50 } } })}
+                    </Box>
+                    <Typography variant="h3" fontWeight={700} sx={{ color: 'white', mb: 1 }}>
+                      {stat.value}
+                    </Typography>
+                    <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.95)', fontWeight: 500, mt: 1.5 }}>
+                      {stat.label}
+                    </Typography>
+                  </Box>
+                </Zoom>
+              </Grid>
             ))}
-          </div>
-        </div>
-      </section>
+          </Grid>
+        </Container>
+      </Box>
 
-      {/* 6️⃣ Special Offers / Promotions */}
-      <section className="py-5 bg-warning text-white text-center">
-        <div className="container">
-          <h2>Limited Time Offer!</h2>
-          <p>Get 20% off on all internet & cable bundles.</p>
-          <button className="btn btn-dark btn-lg mt-2">Grab Now</button>
-        </div>
-      </section>
-
-{/* 7️⃣ Blog / News */}
-{/* <section className="py-5">
-  <div className="container">
-    <h2 className="text-center mb-4">Latest News & Tips</h2>
-    <div className="row justify-content-center">
-      {[1, 2, 3].map((post) => (
-        <div className="col-md-4 mb-4" key={post}>
-          <div className="card blog-card h-100 shadow-sm border-0">
-            <div className="overflow-hidden">
-              <img
-                src="/images/vite.svg"
-                className="card-img-top blog-img"
-                alt={`Blog ${post}`}
-              />
-            </div>
-            <div className="card-body blog-body">
-              <h5 className="card-title">Blog Post {post}</h5>
-              <p className="card-text">
-                Quick tips to improve your internet speed and entertainment experience.
-              </p>
-              <button className="btn btn-outline-primary blog-btn">Read More →</button>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section> */}
-
-
-      {/* 8️⃣ FAQ */}
-      <section className="py-5 bg-light">
-        <div className="container">
-          <h2 className="text-center mb-4">Frequently Asked Questions</h2>
-          <div className="accordion" id="faqAccordion">
-            {[1,2,3].map((q) => (
-              <div className="accordion-item" key={q}>
-                <h2 className="accordion-header" id={`heading${q}`}>
-                  <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${q}`} aria-expanded="false" aria-controls={`collapse${q}`}>
-                    FAQ Question {q}?
-                  </button>
-                </h2>
-                <div id={`collapse${q}`} className="accordion-collapse collapse" aria-labelledby={`heading${q}`} data-bs-parent="#faqAccordion">
-                  <div className="accordion-body">
-                    Answer to FAQ question {q}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-    </div>
+      <CustomerFeedback />
+    </Box>
   );
 };
 

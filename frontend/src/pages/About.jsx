@@ -237,168 +237,129 @@ const About = () => {
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ py: 8 }}>
+      <Container maxWidth="xl" sx={{ py: 8 }}>
+      <Fade in timeout={1200}>
+        <Grid
+          container
+          spacing={6}
+          alignItems="center"
+        >
 
-        {/* Our Story, Mission & Vision - Tabbed Section */}
-        <Fade in timeout={1200}>
-          <Grid container spacing={6} mb={12} alignItems="center">
-            {/* Right Side - Tabbed Content */}
-            <Grid item xs={12} md={6}>
-              <Box sx={{ mb: 2 }}>
-                <Box 
-                  sx={{ 
-                    height: 4, 
-                    width: 60, 
-                    bgcolor: 'primary.main', 
-                    mb: 3 
-                  }} 
-                />
-                <Typography 
-                  variant="h3" 
-                  fontWeight={700} 
-                  gutterBottom
-                  sx={{ fontSize: { xs: '2rem', md: '2.5rem' } }}
-                >
-                  Leading Internet & Cable Provider in Mumbai
-                </Typography>
-              </Box>
+          {/* LEFT SIDE - IMAGE */}
+          <Grid item xs={12} md={6} sx={{ pr: { md: 9 } }}>
+            <Box
+              sx={{
+                borderRadius: '24px',
+                overflow: 'hidden',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
+                width: '100%'
+              }}
+            >
+              <Box
+                component="img"
+                src="/images/cameron.jpg"
+                alt="Internet Service Provider"
+                sx={{
+                  width: '100%',
+                  height: 'auto',
+                  maxHeight: 500,
+                  objectFit: 'cover'
+                }}
 
-              {/* Tab Buttons */}
-              <Box sx={{ display: 'flex', gap: 0, mb: 3, borderBottom: '2px solid #e0e0e0' }}>
-                <Button
-                  onClick={() => setActiveTab(0)}
-                  sx={{
-                    bgcolor: activeTab === 0 ? 'transparent' : 'transparent',
-                    color: activeTab === 0 ? '#e91e63' : '#666',
-                    px: 3,
-                    py: 1.5,
-                    borderRadius: '8px 8px 0 0',
-                    fontWeight: 600,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    borderBottom: activeTab === 0 ? '3px solid #e91e63' : 'none',
-                    '&:hover': {
-                      bgcolor: '#f5f5f5'
-                    }
-                  }}
-                >
-                  Who We Are
-                </Button>
-                <Button
-                  onClick={() => setActiveTab(1)}
-                  sx={{
-                    bgcolor: activeTab === 1 ? 'transparent' : 'transparent',
-                    color: activeTab === 1 ? '#e91e63' : '#666',
-                    px: 3,
-                    py: 1.5,
-                    borderRadius: 0,
-                    fontWeight: 600,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    borderBottom: activeTab === 1 ? '3px solid #e91e63' : 'none',
-                    '&:hover': {
-                      bgcolor: '#f5f5f5'
-                    }
-                  }}
-                >
-                  Our Mission
-                </Button>
-                <Button
-                  onClick={() => setActiveTab(2)}
-                  sx={{
-                    bgcolor: activeTab === 2 ? 'transparent' : 'transparent',
-                    color: activeTab === 2 ? '#e91e63' : '#666',
-                    px: 3,
-                    py: 1.5,
-                    borderRadius: 0,
-                    fontWeight: 600,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    borderBottom: activeTab === 2 ? '3px solid #e91e63' : 'none',
-                    '&:hover': {
-                      bgcolor: '#f5f5f5'
-                    }
-                  }}
-                >
-                  Our Vision
-                </Button>
-              </Box>
-
-              {/* Tab Content */}
-              <Box sx={{ minHeight: 250 }}>
-                {activeTab === 0 && (
-                  <Fade in timeout={400}>
-                    <Box>
-                      <Typography 
-                        variant="body1" 
-                        paragraph 
-                        color="text.secondary" 
-                        sx={{ lineHeight: 1.9, fontSize: '1.05rem' }}
-                      >
-                        Radha Cable Net was established in 2008 with a vision to connect communities across Mumbai with reliable, high-speed internet and affordable cable TV services.
-                      </Typography>
-                      <Typography 
-                        variant="body1" 
-                        paragraph 
-                        color="text.secondary" 
-                        sx={{ lineHeight: 1.9, fontSize: '1.05rem' }}
-                      >
-                        Starting from Mahim, we've grown into one of Mumbai's most trusted connectivity providers, serving over 10,000 satisfied customers. Our commitment to quality service, customer satisfaction, and community engagement has made us the preferred choice for digital connectivity in the region.
-                      </Typography>
-                    </Box>
-                  </Fade>
-                )}
-
-                {activeTab === 1 && (
-                  <Fade in timeout={400}>
-                    <Box>
-                      <Typography 
-                        variant="body1" 
-                        paragraph 
-                        color="text.secondary" 
-                        sx={{ lineHeight: 1.9, fontSize: '1.05rem' }}
-                      >
-                        To deliver seamless connectivity through internet and cable services that empower families, students, and businesses to thrive in today's digital world.
-                      </Typography>
-                      <Typography 
-                        variant="body1" 
-                        paragraph 
-                        color="text.secondary" 
-                        sx={{ lineHeight: 1.9, fontSize: '1.05rem' }}
-                      >
-                        We strive to make quality connectivity accessible and affordable for everyone, ensuring that our customers have the tools they need to stay connected, entertained, and productive. Our mission is built on innovation, reliability, and exceptional customer service.
-                      </Typography>
-                    </Box>
-                  </Fade>
-                )}
-
-                {activeTab === 2 && (
-                  <Fade in timeout={400}>
-                    <Box>
-                      <Typography 
-                        variant="body1" 
-                        paragraph 
-                        color="text.secondary" 
-                        sx={{ lineHeight: 1.9, fontSize: '1.05rem' }}
-                      >
-                        To be recognized as the most reliable and customer-focused internet and cable provider in Mumbai, setting the standard for quality connectivity across the region.
-                      </Typography>
-                      <Typography 
-                        variant="body1" 
-                        paragraph 
-                        color="text.secondary" 
-                        sx={{ lineHeight: 1.9, fontSize: '1.05rem' }}
-                      >
-                        We aim to expand access to high-speed connectivity for everyone while maintaining our commitment to exceptional service, community engagement, and technological innovation. Our vision is to be the first choice for families and businesses seeking dependable digital solutions.
-                      </Typography>
-                    </Box>
-                  </Fade>
-                )}
-              </Box>
-            </Grid>
+              />
+            </Box>
           </Grid>
-        </Fade>
-      </Container>
+
+          {/* RIGHT SIDE - CONTENT */}
+          <Grid item xs={12} md={6} >
+            <Box sx={{ mb: 2 }}>
+              <Box
+                sx={{
+                  height: 4,
+                  width: 60,
+                  bgcolor: 'primary.main',
+                  mb: 3
+                }}
+              />
+              <Typography
+                variant="h3"
+                fontWeight={700}
+                gutterBottom
+                sx={{ fontSize: { xs: '2rem', md: '2.5rem' } }}
+              >
+                Leading Internet & Cable Provider in Mumbai
+              </Typography>
+            </Box>
+
+            {/* TABS */}
+            <Box sx={{ display: 'flex', mb: 3, borderBottom: '2px solid #e0e0e0' }}>
+              {['Who We Are', 'Our Mission', 'Our Vision'].map((label, index) => (
+                <Button
+                  key={label}
+                  onClick={() => setActiveTab(index)}
+                  sx={{
+                    color: activeTab === index ? '#e91e63' : '#666',
+                    px: 3,
+                    py: 1.5,
+                    fontWeight: 600,
+                    textTransform: 'none',
+                    fontSize: '1rem',
+                    borderBottom: activeTab === index ? '3px solid #e91e63' : 'none',
+                    borderRadius: '8px 8px 0 0',
+                    '&:hover': { bgcolor: '#f5f5f5' }
+                  }}
+                >
+                  {label}
+                </Button>
+              ))}
+            </Box>
+
+            {/* TAB CONTENT */}
+            <Box sx={{ minHeight: 250 }}>
+              {activeTab === 0 && (
+                <Fade in timeout={400}>
+                  <Box>
+                    <Typography paragraph color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+                      Radha Cable Net was established in 2008 with a vision to connect communities across Mumbai with reliable, <br />high-speed internet and affordable cable TV services.
+                    </Typography>
+                    <Typography paragraph color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+                      Starting from Mahim, we've grown into one of Mumbai's <br />most trusted connectivity providers, serving over 10,000 satisfied customers.<br />Our dedicated team works tirelessly to ensure every customer <br />experiences seamless connectivity and exceptional support. <br />
+                    </Typography>
+                  </Box>
+                </Fade>
+              )}
+
+              {activeTab === 1 && (
+                <Fade in timeout={400}>
+                  <Box>
+                    <Typography paragraph color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+                      To deliver seamless connectivity through internet and cable services <br /> that empower families, students, and businesses to thrive in today's digital world.<br />
+                    </Typography>
+                    <Typography paragraph color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+                      We strive to make quality connectivity accessible and affordable for everyone.
+                    </Typography>
+                  </Box>
+                </Fade>
+              )}
+
+              {activeTab === 2 && (
+                <Fade in timeout={400}>
+                  <Box>
+                    <Typography paragraph color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+                      To be recognized as the most reliable and customer-focused internet and cable provider in Mumbai.
+                    </Typography>
+                    <Typography paragraph color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+                      Our vision is to expand access to high-speed connectivity while maintaining exceptional service.
+                    </Typography>
+                  </Box>
+                </Fade>
+              )}
+            </Box>
+          </Grid>
+
+        </Grid>
+      </Fade>
+    </Container>
 
       {/* Stats Section - Full Width Red Background with Animation */}
       <Box 
