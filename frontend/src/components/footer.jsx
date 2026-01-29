@@ -23,7 +23,7 @@ const Footer = () => {
       }}
     >
       {/* ✅ Full width footer */}
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" height= "200px">
         <Grid container spacing={5}>
           {/* ✅ Logo + Company Description */}
           <Grid item xs={12} md={4}>
@@ -32,7 +32,7 @@ const Footer = () => {
                 component="img"
                 src="/images/logo3.png"
                 alt="CableNet Logo"
-                sx={{ height: 60 }}
+                sx={{ height: 120 }}
               />
               <Typography variant="h5" fontWeight={800}>
                 CableNet

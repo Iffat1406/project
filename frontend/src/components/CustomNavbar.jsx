@@ -35,7 +35,7 @@ const CustomNavbar = () => {
     { label: 'Home', path: '/' },
     { label: 'Plans', path: null, hasDropdown: true },
     { label: 'Services', path: '/services' },
-    { label: 'Blog', path: '/blog' },
+    // { label: 'Blog', path: '/blog' },
     { label: 'About Us', path: '/about' },
     { label: 'Contact', path: '/contact' },
   ];
@@ -186,7 +186,7 @@ const CustomNavbar = () => {
                   </Menu>
                 </Box>
 
-                {['services', 'blog', 'about', 'contact'].map((path) => (
+                {['services', 'about', 'contact'].map((path) => (
                   <Button key={path} href={`/${path}`} sx={navBtnStyle}>
                     {path.charAt(0).toUpperCase() + path.slice(1)}
                   </Button>

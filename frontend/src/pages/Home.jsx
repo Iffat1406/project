@@ -25,6 +25,7 @@ import {
   HandshakeOutlined,
   PublicOutlined,
   PeopleOutlined,
+  ExpandMoreOutlined,
   ArrowForwardOutlined,
   SpeedOutlined,
   SecurityOutlined,
@@ -34,6 +35,7 @@ import {
 } from '@mui/icons-material';
 import CustomerFeedback from "../components/CustomerFeedback";
 import BannerCarousel from '../components/BannerCarousel';
+import { motion } from "framer-motion";
 
 const Home = () => {
   const theme = useTheme();
@@ -138,33 +140,24 @@ const Home = () => {
     }
   ];
 
-  const cablePlans = [
-    {
-      name: 'HD Package',
-      channels: 90,
-      price: 625,
-      description: 'Perfect for HD entertainment',
-      color: '#2196f3',
-      features: ['90 HD Channels', 'Entertainment Mix', 'Sports & News', 'Movies & Music']
-    },
-    {
-      name: 'HD Premium',
-      channels: 99,
-      price: 735,
-      description: 'Most popular for families',
-      popular: true,
-      color: '#ff9800',
-      features: ['99 HD Channels', 'Premium Entertainment', 'All Sports', 'Latest Movies']
-    },
-    {
-      name: 'Marathi Package',
-      channels: 90,
-      price: 440,
-      description: 'Best Marathi entertainment',
-      color: '#4caf50',
-      features: ['90 Marathi Channels', 'Local Entertainment', 'News & Movies', 'Music & Kids']
-    }
-  ];
+   const leftImageVariant = {
+  hidden: { opacity: 0, x: -80 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
+const rightContentVariant = {
+  hidden: { opacity: 0, x: 80 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
 
   // Intersection Observer for stats animation
   useEffect(() => {
@@ -291,8 +284,8 @@ const Home = () => {
             transition: "all 0.3s",
             bgcolor: "white",
             "&:hover": {
-              transform: "translateY(-12px)",
-              boxShadow: 8,
+              transform: "translateY(-10px)",
+              boxShadow: '0 18px 36px rgba(0,0,0,0.25)',
               borderColor: item.color,
             },
           }}
@@ -758,96 +751,256 @@ const Home = () => {
       </Box>
 
       {/* Cable Plans Section */}
-      <Box sx={{ py: 8, mb: 6, bgcolor: 'white' }}>
-        <Container maxWidth="lg">
-          <Box textAlign="center" mb={6}>
-            <Chip label="CABLE TV PACKAGES" color="error" sx={{ mb: 2, fontWeight: 600 }} />
-            <Typography variant="h4" fontWeight={700} mb={2}>
-              Cable TV Plans for Every Entertainment Need
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 700, mx: 'auto', mb: 1 }}>
-              Experience premium entertainment with our diverse cable TV packages featuring 500+ channels.
-            </Typography>
-          </Box>
+     {/* Cable TV Subscription Section - UPDATED WITH WHITE BACKGROUND AND ANIMATED UNDERLINE */}
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#ffffff', width: '100%', mt: { xs: 6, md: 10 }, mb: { xs: 6, md: 10 } }}>
+        <Container maxWidth="xl">
+          <Grid
+            container
+            spacing={{ xs: 6, md: 12 }}
+            alignItems="center"
+          >
+            {/* LEFT SIDE - IMAGE */}
+            <Grid item xs={12} md={6}>
+  <motion.div
+    variants={leftImageVariant}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.3 }}
+  >
+    <Box sx={{ position: "relative", textAlign: "center" }}>
+      
+      {/* 40% OFF Badge */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: -20,
+          left: -20,
+          width: 110,
+          height: 110,
+          borderRadius: "50%",
+          bgcolor: "#ff1744",
+          color: "#fff",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          fontWeight: 800,
+          boxShadow: "0 10px 30px rgba(255,23,68,0.45)",
+          zIndex: 2,
+        }}
+      >
+        <Typography variant="h4" fontWeight={800}>40%</Typography>
+        <Typography fontSize="0.9rem">OFF</Typography>
+      </Box>
 
-          <Grid container spacing={4} mb={4} justifyContent="center">
-            {cablePlans.map((plan, index) => (
-              <Grid item xs={12} sm={8} md={4} key={index}>
-                <Card
+      {/* TV Image */}
+      <Box
+        component="img"
+        src="/images/tv.jpg"
+        alt="TV Subscription"
+        sx={{
+          width: "100%",
+          maxWidth: 700,
+          borderRadius: "18px",
+          boxShadow: "0 25px 60px rgba(0,0,0,0.25)",
+
+           transition: "transform 0.4s ease",
+    "&:hover": {
+      transform: "rotate(0deg) scale(1.05)",
+    },
+        }}
+      />
+
+      {/* Set-top Box Image BELOW TV */}
+      <Box
+        component="img"
+        src="/images/setupbox.png"
+        alt="Set Top Box"
+        sx={{
+    position: "absolute",
+    bottom: { xs: -30, md: -40 },
+      right: { xs: -200, md: -300 }, // 👉 MORE towards right
+
+    width: { xs: 500, md: 450 },   // 🔥 Bigger size
+    zIndex: 3,
+
+    filter: "drop-shadow(0 20px 35px rgba(0,0,0,0.45))",
+    transform: "rotate(-6deg)",
+
+    transition: "transform 0.4s ease",
+    "&:hover": {
+      transform: "rotate(0deg) scale(1.05)",
+    },
+  }}
+      />
+    </Box>
+  </motion.div>
+</Grid>
+
+
+            {/* RIGHT SIDE - CONTENT */}
+            <Grid item xs={12} md={6}>
+              <motion.div
+                variants={rightContentVariant}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+              >
+              <Box sx={{ textAlign: { xs: "center", md: "left" } }}>
+                {/* Tag */}
+                <Box
                   sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    border: plan.popular ? `3px solid ${plan.color}` : '1px solid #e0e0e0',
-                    transition: 'all 0.3s',
-                    position: 'relative',
-                    '&:hover': { transform: 'translateY(-8px)', boxShadow: 6 },
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.5,
+                    mb: 2.5,
+                    justifyContent: { xs: "center", md: "flex-start" },
                   }}
                 >
-                  {plan.popular && (
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        top: -15,
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        bgcolor: plan.color,
-                        color: 'white',
-                        px: 2,
-                        py: 0.5,
-                        borderRadius: 2,
-                        fontWeight: 700,
-                        fontSize: '0.85rem'
-                      }}
-                    >
-                      MOST POPULAR
-                    </Box>
-                  )}
-
-                  <CardContent sx={{ flexGrow: 1, p: 4, textAlign: 'center' }}>
-                    <Typography variant="h5" fontWeight={700} mb={2}>{plan.name}</Typography>
-                    <Box sx={{ mb: 3 }}>
-                      <Typography variant="h3" fontWeight={700} color="error">{plan.channels}</Typography>
-                      <Typography variant="body2" color="text.secondary">Channels</Typography>
-                    </Box>
-                    <Typography variant="h4" fontWeight={700} color={plan.color} mb={2}>
-                      ₹{plan.price}/month
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" mb={3}>{plan.description}</Typography>
-                    <Divider sx={{ my: 3 }} />
-                    <List dense sx={{ textAlign: 'left' }}>
-                      {plan.features.map((feature, i) => (
-                        <ListItem key={i}>
-                          <ListItemIcon sx={{ minWidth: 32 }}>
-                            <CheckCircleOutlined sx={{ color: plan.color }} />
-                          </ListItemIcon>
-                          <ListItemText primary={feature} />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-
-                  <Box sx={{ p: 2 }}>
-                    <Button
-                      fullWidth
-                      variant={plan.popular ? 'contained' : 'outlined'}
-                      sx={{
-                        fontWeight: 600,
-                        bgcolor: plan.popular ? plan.color : 'transparent',
-                        borderColor: plan.color,
-                        color: plan.popular ? 'white' : plan.color,
-                      }}
-                      onClick={() => handleBuyNow(plan, 'cable')}
-                    >
-                      Subscribe Now
-                    </Button>
+                  <Box
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: "8px",
+                      bgcolor: "#fff5f5",
+                      border: "2px solid #ff1744",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <TvOutlined sx={{ color: "#ff1744" }} />
                   </Box>
-                </Card>
-              </Grid>
-            ))}
+
+                  <Typography
+                    sx={{
+                      color: "#ff1744",
+                      fontWeight: 600,
+                      textTransform: "uppercase",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    Subscribe Cable 
+                  </Typography>
+                </Box>
+
+                {/* Heading */}
+                <Typography
+                  variant="h3"
+                  fontWeight={800}
+                  sx={{
+                    fontSize: { xs: "1.9rem", md: "2.8rem" },
+                    mb: 3,
+                    lineHeight: 1.2,
+                  }}
+                >
+                  Enjoy Sports{" "}
+                  <Box
+                    component="span"
+                    sx={{
+                      color: "#ff1744",
+                      position: "relative",
+                      display: "inline-block",
+                      pb: 1.5,
+                    }}
+                  >
+                    Movies
+                    <Box
+                      component="svg"
+                      sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "12px",
+                        overflow: "visible",
+                      }}
+                      viewBox="0 0 200 12"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M 0 6 Q 50 2, 100 6 T 200 6"
+                        fill="none"
+                        stroke="#ff1744"
+                        strokeWidth="3.5"
+                        strokeLinecap="round"
+                        style={{
+                          strokeDasharray: "200",
+                          strokeDashoffset: "200",
+                          animation: "drawLine 2.5s ease-in-out infinite",
+                        }}
+                      />
+                    </Box>
+                  </Box>
+                  ,<br />
+                  TV Shows & More.
+                </Typography>
+
+                {/* Description */}
+                <Typography
+                  color="text.secondary"
+                  sx={{ mb: 4, lineHeight: 1.8, fontSize: '1.05rem' }}
+                >
+                  Stream unlimited entertainment with premium channels featuring sports,
+                  <br /> blockbuster movies, trending TV shows, and exclusive content for the entire family.
+                </Typography>
+
+                {/* Price */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: 2,
+                    mb: 4,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
+                  <Typography sx={{ fontSize: "1.2rem", color: "#666" }}>
+                    $
+                  </Typography>
+                  <Typography
+                    variant="h2"
+                    fontWeight={800}
+                    sx={{ color: "#ff1744", lineHeight: 1 }}
+                  >
+                    25
+                  </Typography>
+                  <Typography sx={{ color: "#666" }}>/ 1 month</Typography>
+                </Box>
+
+                {/* Button */}
+                <Button
+                  variant="contained"
+                  size="large"
+                  endIcon={
+                    <ExpandMoreOutlined sx={{ transform: "rotate(-90deg)" }} />
+                  }
+                  sx={{
+                    bgcolor: "#ff1744",
+                    px: 5,
+                    py: 1.8,
+                    borderRadius: "50px",
+                    fontWeight: 700,
+                    textTransform: "none",
+                    boxShadow: "0 12px 30px rgba(255,23,68,0.45)",
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      bgcolor: "#e6003c",
+                      transform: "translateY(-3px)",
+                    },
+                  }}
+                >
+                  Check Availibility
+                </Button>
+              </Box>
+              </motion.div>
+            </Grid>
           </Grid>
         </Container>
       </Box>
+
+
+      <CustomerFeedback />
 
       {/* Stats Section */}
       <Box ref={statsRef} sx={{ width: '100%', bgcolor: '#d32f2f', py: { xs: 6, md: 8 }, mb: 12 }}>
@@ -878,8 +1031,6 @@ const Home = () => {
           </Grid>
         </Container>
       </Box>
-
-      <CustomerFeedback />
     </Box>
   );
 };

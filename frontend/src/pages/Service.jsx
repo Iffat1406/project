@@ -51,6 +51,7 @@ import {
   SchoolOutlined
 } from '@mui/icons-material';
 import { motion } from "framer-motion";
+import CustomerFeedback from "../components/CustomerFeedback";
 
 const Services = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -407,292 +408,174 @@ const rightContentVariant = {
             </Box>
           </Fade>
 
-          <Grid
-  container
-  spacing={3}
-  sx={{
-    flexWrap: 'nowrap',
-    overflowX: 'auto',
-    pb: 2,
-  }}
->
-  {additionalServices.map((service, index) => (
-    <Grid
-      item
-      key={index}
-      sx={{ minWidth: { xs: '85%', sm: '60%', md: '30%', lg: '25%' } }}
-    >
-      <Zoom in timeout={1000 + index * 100}>
-        <Card
-          elevation={0}
-          sx={{
-            height: '100%',
-            border: '1px solid #e0e0e0',
-            borderRadius: '14px',
-            p: 3,
-            transition: 'all 0.4s ease',
-            backgroundColor: '#fff',
-            color: '#000',
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' },
+              gap: 3,
+              width: '100%'
+            }}
+          >
+            {additionalServices.map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
+                style={{ height: '100%', display: 'flex' }}
+              >
+                <Card
+                  elevation={0}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '14px',
+                    p: 3,
+                    transition: 'all 0.4s ease',
+                    backgroundColor: '#fff',
+                    color: '#000',
+                    display: 'flex',
+                    flexDirection: 'column',
 
-            '&:hover': {
-              backgroundColor: '#000',
-              color: '#fff',
-              transform: 'translateY(-10px)',
-              boxShadow: '0 18px 36px rgba(0,0,0,0.25)',
-              borderColor: '#000',
-            },
+                    '&:hover': {
+                      // backgroundColor: '#000',
+                      // color: '#fff',
+                      transform: 'translateY(-10px)',
+                      boxShadow: '0 18px 36px rgba(0,0,0,0.25)',
+                      borderColor: service.color,
+                    },
 
-            '&:hover .service-icon': {
-              color: '#fff',
-              backgroundColor: 'rgba(255,255,255,0.15)',
-            },
 
-            '&:hover .service-text': {
-              color: '#e0e0e0',
-            }
-          }}
-        >
-          <CardContent sx={{ p: 0 }}>
-            {/* Icon */}
-            <Box
-              className="service-icon"
-              sx={{
-                width: 56,
-                height: 56,
-                borderRadius: '12px',
-                bgcolor: `${service.color}20`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mb: 2,
-                color: service.color,
-                transition: 'all 0.3s',
-              }}
-            >
-              {React.cloneElement(service.icon, { sx: { fontSize: 28 } })}
-            </Box>
+                    '&:hover .service-text': {
+                      color: '#000000ff',
+                    }
+                  }}
+                >
+                  <CardContent sx={{ p: 0, display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    {/* Icon */}
+                    <Box
+                      className="service-icon"
+                      sx={{
+                        width: 56,
+                        height: 56,
+                        borderRadius: '12px',
+                        bgcolor: `${service.color}20`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mb: 2,
+                        color: service.color,
+                        transition: 'all 0.3s',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {React.cloneElement(service.icon, { sx: { fontSize: 28 } })}
+                    </Box>
 
-            {/* Title */}
-            <Typography
-              variant="h6"
-              fontWeight={700}
-              gutterBottom
-            >
-              {service.title}
-            </Typography>
+                    {/* Title */}
+                    <Typography
+                      variant="h6"
+                      fontWeight={700}
+                      gutterBottom
+                      sx={{ 
+                        wordWrap: 'break-word', 
+                        overflowWrap: 'break-word',
+                        hyphens: 'auto'
+                      }}
+                    >
+                      {service.title}
+                    </Typography>
 
-            {/* Description */}
-            <Typography
-              variant="body2"
-              className="service-text"
-              sx={{ mb: 2, lineHeight: 1.6 }}
-            >
-              {service.description}
-            </Typography>
+                    {/* Description */}
+                    <Typography
+                      variant="body2"
+                      className="service-text"
+                      sx={{ 
+                        mb: 2, 
+                        lineHeight: 1.6, 
+                        wordWrap: 'break-word', 
+                        overflowWrap: 'break-word',
+                        hyphens: 'auto'
+                      }}
+                    >
+                      {service.description}
+                    </Typography>
 
-            {/* Extra Content */}
-            <List dense>
-              {service.points.map((point, i) => (
-                <ListItem key={i} sx={{ px: 0, py: 0.3 }}>
-                  <ListItemIcon sx={{ minWidth: 26 }}>
-                    <CheckCircleOutlined
-                      sx={{ fontSize: 18, color: 'inherit' }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={point}
-                    primaryTypographyProps={{
-                      variant: 'body2',
-                      sx: { fontSize: '0.9rem' }
-                    }}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </CardContent>
-        </Card>
-      </Zoom>
-    </Grid>
-  ))}
-</Grid>
-
+                    {/* Extra Content */}
+                    <List dense sx={{ flexGrow: 1, pb: 0 }}>
+                      {service.points.map((point, i) => (
+                        <ListItem 
+                          key={i} 
+                          sx={{ 
+                            px: 0, 
+                            py: 0.3, 
+                            alignItems: 'flex-start',
+                            '& .MuiListItemText-root': {
+                              margin: 0
+                            }
+                          }}
+                        >
+                          <ListItemIcon sx={{ minWidth: 26, mt: 0.3 }}>
+                            <CheckCircleOutlined
+                              sx={{ 
+                                fontSize: 18, 
+                                color: 'inherit', 
+                                flexShrink: 0 
+                              }}
+                            />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={point}
+                            primaryTypographyProps={{
+                              variant: 'body2',
+                              sx: { 
+                                fontSize: '0.9rem',
+                                wordWrap: 'break-word', 
+                                overflowWrap: 'break-word',
+                                hyphens: 'auto'
+                              }
+                            }}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </Box>
         </Box>
    
         {/* Unlimited Network Section */}
         <Box sx={{ mb: 10 }}>
           <Grid container spacing={4} alignItems="center">
-            {/* Left Side - Visual Elements */}
+            {/* Left Side - Image */}
             <Grid item xs={12} md={6}>
-              <Box sx={{ position: 'relative', height: { xs: 450, md: 550 }, pl: { xs: 2, md: 4 } }}>
-                {/* Main Tower Card */}
-                <Paper
-                  elevation={4}
+              <motion.div
+                initial={{ opacity: 0, x: -60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <Box
+                  component="img"
+                  src="/images/shvetsa.jpg"
+                  alt="Internet Network"
                   sx={{
-                    position: 'absolute',
-                    left: { xs: '8%', md: '8%' },
-                    top: '8%',
-                    width: { xs: '42%', md: '40%' },
-                    height: '70%',
-                    bgcolor: '#000',
+                    width: '100%',
+                    maxWidth: 550,
+                    height: 'auto',
                     borderRadius: '20px',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    '&::before': {
-                      content: '""',
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      background: 'repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(255,255,255,0.03) 35px, rgba(255,255,255,0.03) 70px)',
-                      pointerEvents: 'none'
+                    boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+                    transition: 'transform 0.4s ease',
+                    '&:hover': {
+                      transform: 'scale(1.05)'
                     }
                   }}
-                >
-                  {/* Tower Icon */}
-                  <Box sx={{ position: 'relative', zIndex: 2 }}>
-                    <Box
-                      sx={{
-                        width: { xs: 100, md: 140 },
-                        height: { xs: 100, md: 140 },
-                        borderRadius: '50%',
-                        border: '3px solid #f44336',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        position: 'relative',
-                        '&::before': {
-                          content: '""',
-                          position: 'absolute',
-                          width: '85%',
-                          height: '85%',
-                          borderRadius: '50%',
-                          border: '2px solid #f44336',
-                          opacity: 0.6
-                        },
-                        '&::after': {
-                          content: '""',
-                          position: 'absolute',
-                          width: '65%',
-                          height: '65%',
-                          borderRadius: '50%',
-                          border: '2px solid #f44336',
-                          opacity: 0.4
-                        }
-                      }}
-                    >
-                      <RouterOutlined sx={{ fontSize: { xs: 45, md: 55 }, color: '#f44336' }} />
-                    </Box>
-                  </Box>
-                </Paper>
-
-                {/* WiFi Icon Card - Middle Right */}
-                <Paper
-                  elevation={4}
-                  sx={{
-                    position: 'absolute',
-                    right: { xs: '8%', md: '10%' },
-                    top: { xs: '20%', md: '18%' },
-                    width: { xs: 220, md: 260 },
-                    height: { xs: 240, md: 280 },
-                    bgcolor: '#f5f5f5',
-                    borderRadius: '20px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 2
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: { xs: 110, md: 130 },
-                      height: { xs: 110, md: 130 },
-                      borderRadius: '50%',
-                      border: '3px solid #f44336',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      position: 'relative',
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        width: '135%',
-                        height: '135%',
-                        borderRadius: '50%',
-                        border: '2px solid #f4433625',
-                      },
-                      '&::after': {
-                        content: '""',
-                        position: 'absolute',
-                        width: '170%',
-                        height: '170%',
-                        borderRadius: '50%',
-                        border: '2px solid #f4433615',
-                      }
-                    }}
-                  >
-                    <WifiOutlined sx={{ fontSize: { xs: 45, md: 55 }, color: '#f44336' }} />
-                  </Box>
-                </Paper>
-
-                {/* WiFi Bottom Button */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    right: { xs: '15%', md: '18%' },
-                    bottom: { xs: '5%', md: '8%' },
-                    width: { xs: 70, md: 85 },
-                    height: { xs: 70, md: 85 },
-                    borderRadius: '50%',
-                    bgcolor: '#f44336',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 2,
-                    boxShadow: '0 8px 24px rgba(244, 67, 54, 0.3)'
-                  }}
-                >
-                  <WifiOutlined sx={{ fontSize: { xs: 32, md: 40 }, color: 'white' }} />
-                </Box>
-
-                {/* Decorative Icons */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: { xs: '3%', md: '5%' },
-                    left: { xs: '18%', md: '20%' },
-                    width: { xs: 45, md: 55 },
-                    height: { xs: 45, md: 55 },
-                    borderRadius: '50%',
-                    border: '2px dashed #f4433660',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <PhoneOutlined sx={{ fontSize: { xs: 18, md: 22 }, color: '#f4433680' }} />
-                </Box>
-
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: { xs: '5%', md: '8%' },
-                    right: { xs: '22%', md: '25%' },
-                    width: { xs: 55, md: 65 },
-                    height: { xs: 55, md: 65 },
-                    borderRadius: '50%',
-                    bgcolor: '#f44336',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 4px 12px rgba(244, 67, 54, 0.25)'
-                  }}
-                >
-                  <RouterOutlined sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />
-                </Box>
-              </Box>
+                />
+              </motion.div>
             </Grid>
 
             {/* Right Side - Content */}
@@ -1133,149 +1016,7 @@ const rightContentVariant = {
       </Box>
 
       <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 } }}>
-        {/* FAQs */}
-        <Box mb={10} mt={{ xs: 6, md: 10 }}>
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 4, md: 6 } }}>
-            {/* Left Side - Ask Us Anything */}
-            <Box sx={{ flex: { xs: '1 1 100%', md: '0 0 40%' } }}>
-              <Fade in timeout={600}>
-                <Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
-                    <WifiOutlined sx={{ color: '#f44336', fontSize: 32 }} />
-                    <Typography 
-                      variant="subtitle1" 
-                      sx={{ 
-                        color: '#f44336',
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                        fontSize: '0.9rem'
-                      }}
-                    >
-                      Asked Questions
-                    </Typography>
-                  </Box>
-
-                  <Typography 
-                    variant="h3" 
-                    fontWeight={800} 
-                    sx={{ 
-                      fontSize: { xs: '1.8rem', md: '2.5rem' }, 
-                      mb: 4,
-                      lineHeight: 1.2,
-                      color: '#000'
-                    }}
-                  >
-                    Have Any Questions On Your Minds!
-                  </Typography>
-
-                  <List sx={{ mb: 4 }}>
-                    <ListItem sx={{ px: 0, py: 1.5, alignItems: 'flex-start' }}>
-                      <ListItemIcon sx={{ minWidth: 32, mt: 0.5 }}>
-                        <CheckCircleOutlined sx={{ color: '#f44336', fontSize: 22 }} />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Pay 12 Months Bill and get a new Connection Free."
-                        primaryTypographyProps={{ 
-                          variant: 'body1',
-                          sx: { fontWeight: 400, fontSize: '0.95rem', lineHeight: 1.6 }
-                        }}
-                      />
-                    </ListItem>
-                    <ListItem sx={{ px: 0, py: 1.5, alignItems: 'flex-start' }}>
-                      <ListItemIcon sx={{ minWidth: 32, mt: 0.5 }}>
-                        <CheckCircleOutlined sx={{ color: '#f44336', fontSize: 22 }} />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Pay 3 Months Bill and get 10% Discount on OTC."
-                        primaryTypographyProps={{ 
-                          variant: 'body1',
-                          sx: { fontWeight: 400, fontSize: '0.95rem', lineHeight: 1.6 }
-                        }}
-                      />
-                    </ListItem>
-                  </List>
-                </Box>
-              </Fade>
-            </Box>
-
-            {/* Right Side - FAQ Accordion */}
-            <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 60%' } }}>
-              <Box>
-                {faqs.slice(0, 4).map((faq, index) => (
-                  <Zoom in timeout={800 + index * 100} key={index}>
-                    <Accordion
-                      elevation={0}
-                      sx={{
-                        mb: 2,
-                        border: '1px solid #e0e0e0',
-                        borderRadius: '12px !important',
-                        bgcolor: '#fff',
-                        transition: 'all 0.3s',
-                        '&:hover': {
-                          boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                          borderColor: '#d0d0d0'
-                        },
-                        '&:before': { display: 'none' },
-                        '& .MuiAccordionSummary-root': {
-                          minHeight: 64,
-                          '&.Mui-expanded': {
-                            minHeight: 64
-                          }
-                        }
-                      }}
-                    >
-                      <AccordionSummary 
-                        expandIcon={
-                          <Box
-                            sx={{
-                              width: 28,
-                              height: 28,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              transition: 'all 0.3s'
-                            }}
-                          >
-                            <Typography sx={{ fontSize: '1.5rem', fontWeight: 300, color: '#666' }}>+</Typography>
-                          </Box>
-                        }
-                        sx={{ 
-                          py: 1.5,
-                          px: 2.5
-                        }}
-                      >
-                        <Typography 
-                          fontWeight={600} 
-                          sx={{ 
-                            fontSize: '0.95rem',
-                            pr: 2,
-                            color: '#000'
-                          }}
-                        >
-                          {faq.question}
-                        </Typography>
-                      </AccordionSummary>
-                      <AccordionDetails sx={{ px: 2.5, pb: 2.5, pt: 0 }}>
-                        <Typography 
-                          color="text.secondary" 
-                          sx={{ 
-                            lineHeight: 1.7,
-                            fontSize: '0.9rem'
-                          }}
-                        >
-                          {faq.answer}
-                        </Typography>
-                      </AccordionDetails>
-                    </Accordion>
-                  </Zoom>
-                ))}
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-        
-        {/* Main Services */}
+          {/* Main Services */}
         <Box mb={10}>
           <Fade in timeout={600}>
             <Box textAlign="center" mb={6}>
@@ -1467,10 +1208,155 @@ const rightContentVariant = {
             ))}
           </Grid>
         </Box>
+
+        {/* FAQs */}
+        <Box mb={10} mt={{ xs: 6, md: 10 }}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 4, md: 6 } }}>
+            {/* Left Side - Ask Us Anything */}
+            <Box sx={{ flex: { xs: '1 1 100%', md: '0 0 40%' } }}>
+              <Fade in timeout={600}>
+                <Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
+                    <WifiOutlined sx={{ color: '#f44336', fontSize: 32 }} />
+                    <Typography 
+                      variant="subtitle1" 
+                      sx={{ 
+                        color: '#f44336',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        fontSize: '0.9rem'
+                      }}
+                    >
+                      Asked Questions
+                    </Typography>
+                  </Box>
+
+                  <Typography 
+                    variant="h3" 
+                    fontWeight={800} 
+                    sx={{ 
+                      fontSize: { xs: '1.8rem', md: '2.5rem' }, 
+                      mb: 4,
+                      lineHeight: 1.2,
+                      color: '#000'
+                    }}
+                  >
+                    Have Any Questions On Your Minds!
+                  </Typography>
+
+                  <List sx={{ mb: 4 }}>
+                    <ListItem sx={{ px: 0, py: 1.5, alignItems: 'flex-start' }}>
+                      <ListItemIcon sx={{ minWidth: 32, mt: 0.5 }}>
+                        <CheckCircleOutlined sx={{ color: '#f44336', fontSize: 22 }} />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Pay 12 Months Bill and get a new Connection Free."
+                        primaryTypographyProps={{ 
+                          variant: 'body1',
+                          sx: { fontWeight: 400, fontSize: '0.95rem', lineHeight: 1.6 }
+                        }}
+                      />
+                    </ListItem>
+                    <ListItem sx={{ px: 0, py: 1.5, alignItems: 'flex-start' }}>
+                      <ListItemIcon sx={{ minWidth: 32, mt: 0.5 }}>
+                        <CheckCircleOutlined sx={{ color: '#f44336', fontSize: 22 }} />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Pay 3 Months Bill and get 10% Discount on OTC."
+                        primaryTypographyProps={{ 
+                          variant: 'body1',
+                          sx: { fontWeight: 400, fontSize: '0.95rem', lineHeight: 1.6 }
+                        }}
+                      />
+                    </ListItem>
+                  </List>
+                </Box>
+              </Fade>
+            </Box>
+
+            {/* Right Side - FAQ Accordion */}
+            <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 60%' } }}>
+              <Box>
+                {faqs.slice(0, 4).map((faq, index) => (
+                  <Zoom in timeout={800 + index * 100} key={index}>
+                    <Accordion
+                      elevation={0}
+                      sx={{
+                        mb: 2,
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '12px !important',
+                        bgcolor: '#fff',
+                        transition: 'all 0.3s',
+                        '&:hover': {
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                          borderColor: '#d0d0d0'
+                        },
+                        '&:before': { display: 'none' },
+                        '& .MuiAccordionSummary-root': {
+                          minHeight: 64,
+                          '&.Mui-expanded': {
+                            minHeight: 64
+                          }
+                        }
+                      }}
+                    >
+                      <AccordionSummary 
+                        expandIcon={
+                          <Box
+                            sx={{
+                              width: 28,
+                              height: 28,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              transition: 'all 0.3s'
+                            }}
+                          >
+                            <Typography sx={{ fontSize: '1.5rem', fontWeight: 300, color: '#666' }}>+</Typography>
+                          </Box>
+                        }
+                        sx={{ 
+                          py: 1.5,
+                          px: 2.5
+                        }}
+                      >
+                        <Typography 
+                          fontWeight={600} 
+                          sx={{ 
+                            fontSize: '0.95rem',
+                            pr: 2,
+                            color: '#000'
+                          }}
+                        >
+                          {faq.question}
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails sx={{ px: 2.5, pb: 2.5, pt: 0 }}>
+                        <Typography 
+                          color="text.secondary" 
+                          sx={{ 
+                            lineHeight: 1.7,
+                            fontSize: '0.9rem'
+                          }}
+                        >
+                          {faq.answer}
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  </Zoom>
+                ))}
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+        
       </Container>
 
+      <CustomerFeedback />
+
       {/* Inquiry Dialog */}
-      <Dialog 
+      {/* <Dialog 
         open={openDialog} 
         onClose={handleCloseDialog} 
         maxWidth="sm" 
@@ -1618,7 +1504,7 @@ const rightContentVariant = {
             Submit Request
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </Box>
   );
 };
